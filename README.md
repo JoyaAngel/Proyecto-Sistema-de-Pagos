@@ -1,12 +1,12 @@
 ## Proyecto-Implementación
 
-###Descripción###
+### Descripción
 
 Como administrador quiero ingresar al sistema por medio de usuario y contraseña, para
 poder agregar, eliminar, actualizar y listar los pagos que obtiene y que realiza una empresa
 de desarrollo de software.
 
-###Descripción:
+### Descripción:
 
 Quiero registrar los datos para administrar los pagos y anticipos por proyecto activo que me
 servirá para llevar un control de los pagos que se realizan a los proveedores y los anticipos
@@ -16,53 +16,53 @@ esos pagos y anticipos.
 Los campos que se deberán registrar son los siguientes:
 
 1. Proyectos:
-  * Nombre
-  * Fecha de Inicio del Proyecto
-  * Subtotal
-  * IVA
-  * Total
-  * Concepto
-  * Comentarios Adicionales
+    * Nombre
+    * Fecha de Inicio del Proyecto
+    * Subtotal
+    * IVA
+    * Total
+    * Concepto
+    * Comentarios Adicionales
 
 2. Clientes:
-  * Razón Social
-  * Persona Física o Moral
-  * RFC
-  * Domicilio Fiscal
-  * Email
-  * Teléfono
+    * Razón Social
+    * Persona Física o Moral
+    * RFC
+    * Domicilio Fiscal
+    * Email
+    * Teléfono
 
 3. Proveedores
-  * Razón Social:
-  * Persona Física o Moral
-  * RFC
-  * Domicilio
-  * Email
-  * Teléfono
+    * Razón Social:
+    * Persona Física o Moral
+    * RFC
+    * Domicilio
+    * Email
+    * Teléfono
 
 4. Anticipos:
-  * Cliente quien realizó el anticipo
-  * Proyecto al que pertenece este anticipo
-  * Monto del anticipo
-  * Fecha del Anticipo
-  * Método (Deposito o Transferencia)
-  * Referencia
+    * Cliente quien realizó el anticipo
+    * Proyecto al que pertenece este anticipo
+    * Monto del anticipo
+    * Fecha del Anticipo
+    * Método (Deposito o Transferencia)
+    * Referencia
 
 5. Pagos:
-  * Proveedor al que se le realizó el pago
-  * Proyecto al que pertenece este pago
-  * Monto del pago
-  * Fecha del pago
-  * Método (Deposito o Transferencia)
-  * Referencia
+    * Proveedor al que se le realizó el pago
+    * Proyecto al que pertenece este pago
+    * Monto del pago
+    * Fecha del pago
+    * Método (Deposito o Transferencia)
+    * Referencia
 
 6. Usuarios:
-  * Nombre del Usuario
-  * Rol (Administrador o Usuario sin Privilegios)
-  * Email
-  * Password
+    * Nombre del Usuario
+    * Rol (Administrador o Usuario sin Privilegios)
+    * Email
+    * Password
 
-###Criterios Aceptación:
+### Criterios Aceptación:
 
 En caso de que el administrador desee registrar un pago o anticipo primero deberá listar los
 proyectos activos y si el proyecto existe podrá continuar con el registro, en caso contrario
@@ -85,7 +85,7 @@ cambie de contraseña.
 **Nota:** Otros detalles se explicarán en el salón de clases y que esos detalles también
 formarán parte de los criterios de aceptación.
 
-###Criterios de Evaluación
+### Criterios de Evaluación
 
 Elaborar un sistema con ayuda del Framework Laravel, de acuerdo a las instrucciones del
 sistema antes mencionadas y en equipo de 6 personas. Tu proyecto desarrollado con
