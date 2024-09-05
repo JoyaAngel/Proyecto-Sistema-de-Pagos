@@ -1,6 +1,6 @@
 ## Proyecto-Implementación
 
-###Descripción
+###Descripción###
 
 Como administrador quiero ingresar al sistema por medio de usuario y contraseña, para
 poder agregar, eliminar, actualizar y listar los pagos que obtiene y que realiza una empresa
