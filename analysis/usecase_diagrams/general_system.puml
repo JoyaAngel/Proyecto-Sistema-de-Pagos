@@ -8,12 +8,12 @@ actor "Administrador" as Admin
 actor "Usuario" as User
 
 rectangle Sistema {
-    usecase "Gestión de Clientes" as UC_Clients
-    usecase "Gestión de Proveedores" as UC_Suppliers
-    usecase "Gestión de Proyectos" as UC_Projects
-    usecase "Gestión de Anticipos" as UC_Advances
-    usecase "Gestión de Pagos" as UC_Payments
-    usecase "Gestión de Usuarios" as UC_Users
+    usecase "UC004: Gestión de Clientes" as UC_Clients
+    usecase "UC005: Gestión de Proveedores" as UC_Suppliers
+    usecase "UC006: Gestión de Proyectos" as UC_Projects
+    usecase "UC007: Gestión de Anticipos" as UC_Advances
+    usecase "UC008: Gestión de Pagos" as UC_Payments
+    usecase "UC009: Gestión de Usuarios" as UC_Users
 }
 
 Admin --> UC_Clients : CRUD de Clientes

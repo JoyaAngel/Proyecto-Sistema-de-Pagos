@@ -7,10 +7,10 @@ title Gestión de Clientes
 actor "Administrador" as Admin
 
 rectangle Sistema {
-    usecase "Agregar Cliente" as UC_AddClient
-    usecase "Listar Clientes" as UC_ListClients
-    usecase "Editar Cliente" as UC_EditClient
-    usecase "Eliminar Cliente" as UC_DeleteClient
+    usecase "UC009: Agregar Cliente" as UC_AddClient
+    usecase "UC010: Listar Clientes" as UC_ListClients
+    usecase "UC011: Editar Cliente" as UC_EditClient
+    usecase "UC012: Eliminar Cliente" as UC_DeleteClient
 }
 
 Admin --> UC_AddClient
