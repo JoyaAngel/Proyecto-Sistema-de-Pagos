@@ -1,4 +1,4 @@
-@startuml autenticacion_usuario
+@startuml user_authentication
 
 title Autenticación de usuario
 
