@@ -1,0 +1,30 @@
+@startuml general_system
+
+title Sistema de Gestión de Proyectos
+
+left to right direction
+
+actor "Administrador" as Admin
+actor "Usuario" as User
+
+rectangle Sistema {
+    usecase "Gestión de Clientes" as UC_Clients
+    usecase "Gestión de Proveedores" as UC_Suppliers
+    usecase "Gestión de Proyectos" as UC_Projects
+    usecase "Gestión de Anticipos" as UC_Advances
+    usecase "Gestión de Pagos" as UC_Payments
+    usecase "Gestión de Usuarios" as UC_Users
+}
+
+Admin --> UC_Clients : CRUD de Clientes
+Admin --> UC_Suppliers : CRUD de Proveedores
+Admin --> UC_Projects : CRUD de Proyectos
+Admin --> UC_Advances : Registrar/Editar Anticipos
+Admin --> UC_Payments : Registrar/Editar Pagos
+Admin --> UC_Users : CRUD de Usuarios
+
+User -up-> UC_Projects : Ver proyectos
+User -up-> UC_Advances : Ver anticipos
+User -up-> UC_Payments : Ver pagos
+
+@enduml
