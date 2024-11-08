@@ -1,0 +1,22 @@
+@startuml user_management
+
+title Gestión de Usuarios
+
+left to right direction
+
+actor "Administrador" as Admin
+
+rectangle Sistema {
+    usecase "UC026: Registrar Usuario" as UC_AddUser
+    usecase "UC027: Listar Usuarios" as UC_ListUsers
+    usecase "UC028: Editar Usuario" as UC_EditUser
+    usecase "UC029: Eliminar Usuario" as UC_DeleteUser
+    usecase "UC030: Restablecer Contraseña" as UC_ResetPassword
+}
+
+Admin --> UC_AddUser
+Admin --> UC_ListUsers
+Admin --> UC_EditUser
+Admin --> UC_DeleteUser
+Admin --> UC_ResetPassword
+@enduml
