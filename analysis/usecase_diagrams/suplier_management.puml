@@ -1,0 +1,25 @@
+@startuml suplier_management
+
+title Gestión de Proveedores
+
+left to right direction
+
+actor "Administrador" as Admin
+actor "Usuario" as User
+
+rectangle Sistema {
+    usecase "UC013: Agregar Proyecto" as UC_AddProject
+    usecase "UC014: Listar Proyectos" as UC_ListProjects
+    usecase "UC015: Editar Proyecto" as UC_EditProject
+    usecase "UC016: Eliminar Proyecto" as UC_DeleteProject
+    usecase "UC017: Cambiar Estado de Proyecto" as UC_ChangeStatus
+}
+
+Admin --> UC_AddProject
+Admin --> UC_ListProjects
+Admin --> UC_EditProject
+Admin --> UC_DeleteProject
+Admin --> UC_ChangeStatus
+
+User --> UC_ListProjects : Ver Proyectos
+@enduml
