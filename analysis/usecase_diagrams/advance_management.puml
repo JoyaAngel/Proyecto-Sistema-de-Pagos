@@ -1,0 +1,20 @@
+@startuml advance_management
+
+title Gestión de Anticipos
+
+left to right direction
+
+actor "Administrador" as Admin
+
+rectangle Sistema {
+    usecase "UC018: Registrar Anticipo" as UC_AddAdvance
+    usecase "UC019: Listar Anticipos" as UC_ListAdvances
+    usecase "UC020: Editar Anticipo" as UC_EditAdvance
+    usecase "UC021: Eliminar Anticipo" as UC_DeleteAdvance
+}
+
+Admin --> UC_AddAdvance
+Admin --> UC_ListAdvances
+Admin --> UC_EditAdvance
+Admin --> UC_DeleteAdvance
+@enduml
