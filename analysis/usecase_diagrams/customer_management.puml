@@ -1,0 +1,20 @@
+@startuml customer_management
+
+left to right direction
+
+title Gestión de Clientes
+
+actor "Administrador" as Admin
+
+rectangle Sistema {
+    usecase "Agregar Cliente" as UC_AddClient
+    usecase "Listar Clientes" as UC_ListClients
+    usecase "Editar Cliente" as UC_EditClient
+    usecase "Eliminar Cliente" as UC_DeleteClient
+}
+
+Admin --> UC_AddClient
+Admin --> UC_ListClients
+Admin --> UC_EditClient
+Admin --> UC_DeleteClient
+@enduml
