@@ -1,0 +1,20 @@
+@startuml payment_management
+
+title Gestión de Pagos
+
+left to right direction
+
+actor "Administrador" as Admin
+
+rectangle Sistema {
+    usecase "UC022: Registrar Pago" as UC_AddPayment
+    usecase "UC023: Listar Pagos" as UC_ListPayments
+    usecase "UC024: Editar Pago" as UC_EditPayment
+    usecase "UC025: Eliminar Pago" as UC_DeletePayment
+}
+
+Admin --> UC_AddPayment
+Admin --> UC_ListPayments
+Admin --> UC_EditPayment
+Admin --> UC_DeletePayment
+@enduml
