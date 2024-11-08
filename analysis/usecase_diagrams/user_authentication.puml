@@ -1,0 +1,18 @@
+@startuml autenticacion_usuario
+
+title Autenticación de usuario
+
+actor "Usuario" as User
+
+rectangle Sistema {
+
+    usecase "UC001: Iniciar sesión" as UC_Login
+    usecase "UC002: Validar credenciales" as UC_Validate
+    usecase "UC003: Mostrar mensaje de error" as UC_Error
+    
+}
+
+User -right-> UC_Login
+UC_Login -down-> UC_Validate
+UC_Validate -down-> UC_Error : Credenciales no válidas
+@enduml
