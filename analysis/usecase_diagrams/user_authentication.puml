@@ -5,11 +5,9 @@ title Autenticación de usuario
 actor "Usuario" as User
 
 rectangle Sistema {
-
     usecase "UC001: Iniciar sesión" as UC_Login
     usecase "UC002: Validar credenciales" as UC_Validate
-    usecase "UC003: Mostrar mensaje de error" as UC_Error
-    
+    usecase "UC003: Mostrar mensaje de error" as UC_Error   
 }
 
 User -right-> UC_Login
