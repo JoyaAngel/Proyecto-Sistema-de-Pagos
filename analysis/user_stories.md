@@ -12,7 +12,7 @@
 
 - Como administrador, quiero poder eliminar un usuario del sistema, para así mantener un correcto control de usuarios.
 
-- Como **usuario**, quiero poder restablecer mi contraseña respondiendo a mis preguntas de seguridad, para así poder seguir accediendo al sistema.
+- Como **administrador/usuario**, quiero poder restablecer mi contraseña respondiendo a mis preguntas de seguridad, para así poder seguir accediendo al sistema.
 
 ## Gestión de clientes
 
