@@ -1,7 +1,5 @@
-
+@extends('...layouts.app')
 
 @section('content')
-    <form>
-        @include('partials.organizations._form_organizations', ['flag' => 'c'])
-    </form>
+    @include('...partials.organizations._form_organizations', [$flag])
 @endsection

@@ -19,7 +19,8 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        $flag = 'c';
+        return view('dashboard.organizations.clients.create', compact('flag'));   
     }
 
     /**
