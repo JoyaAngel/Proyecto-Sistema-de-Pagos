@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projectsxorganizations', function (Blueprint $table) {
-            $table->foreignId('idProject');
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->id('idTransaction')->autoIncrement();
             $table->foreignId('idOrganization');
+            $table->float('amount');
+            $table->char('type', 1);
+            $table->char('method', 1);
+            $table->string('reference')->nullable();
+            $table->date('date');
+            $table->timestamps();
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('transactions');
     }
 };

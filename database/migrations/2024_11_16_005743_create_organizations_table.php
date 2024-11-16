@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id('idOrganization')->autoIncrement();
-            $table->string('name');
+            $table->string('name', 100);
             $table->char('type', 1);
             $table->char('person', 1);
             $table->char('rfc', 13);
-            $table->string('address');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('address', 150);
+            $table->string('email', 100);
+            $table->char('phone', 10);
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('organizations');
     }
 };

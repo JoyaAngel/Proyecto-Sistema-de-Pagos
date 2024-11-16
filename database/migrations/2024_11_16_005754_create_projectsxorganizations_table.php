@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id('idTransaction')->autoIncrement();
+        Schema::create('projectsxorganizations', function (Blueprint $table) {
+            $table->foreignId('idProject');
             $table->foreignId('idOrganization');
-            $table->float('amount');
-            $table->char('type', 1);
-            $table->string('method');
-            $table->string('reference')->nullable();
-            $table->date('date');;
+            $table->timestamps();
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('projectsxorganizations');
     }
 };

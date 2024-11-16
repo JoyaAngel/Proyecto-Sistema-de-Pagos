@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id('idProject')->autoIncrement();
-            $table->string('name');
+            $table->string('name', 100);
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->float('subtotal');
-            $table->string('concept')->nullable();
-            $table->string('comments')->nullable();
+            $table->string('concept', 200)->nullable();
+            $table->string('comments', 200)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('projects');
     }
 };
