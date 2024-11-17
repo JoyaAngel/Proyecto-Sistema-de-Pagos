@@ -11,20 +11,23 @@ class OrganizationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $organizations = Organization::all();
-        return view('dashboard.organizations.index', compact('organizations'));
+        $type = $request->query('type') ?? session('type');
+        $organizations = Organization::where('type', $type)->get();
+        return view('dashboard.organizations.index', compact('organizations', 'type'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $flag = 'c';
-        return view('dashboard.organizations.create', compact('flag'));   
+        $type = $request->query('type');
+        $organization = new Organization();
+        return view('dashboard.organizations.create', compact('type', 'organization'));   
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -49,24 +52,30 @@ class OrganizationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Organization $organization)
     {
-        //
+        return view('dashboard.organizations.edit', compact('organization'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreOrganizationRequest $request, Organization $organization)
     {
-        //
+        $data = $request->validated();
+
+        $organization->update($data);
+
+        return redirect()->route('organization.index', ['type' => $organization->type])->with('status', 'Organization updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Organization $organization)
     {
-        //
+        $organization->delete();
+
+        return back()->with('status', 'Organization deleted successfully');
     }
 }
