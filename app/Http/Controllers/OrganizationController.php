@@ -13,7 +13,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+        $organizations = Organization::all();
+        return view('dashboard.organizations.index', compact('organizations'));
     }
 
     /**
@@ -22,7 +23,7 @@ class OrganizationController extends Controller
     public function create()
     {
         $flag = 'c';
-        return view('dashboard.organizations.clients.create', compact('flag'));   
+        return view('dashboard.organizations.create', compact('flag'));   
     }
 
     /**

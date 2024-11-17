@@ -13,7 +13,7 @@
                     Organiztions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('organization.create')}}">Clients</a>
+                    <a class="dropdown-item" href="{{ route('organization.index')}}">Clients</a>
                     <a class="dropdown-item" href="#">Suppliers</a>
                 </div>
             </li>
