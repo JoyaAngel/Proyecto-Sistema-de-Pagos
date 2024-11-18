@@ -26,4 +26,4 @@ Route::resource('project', ProjectController::class);
 Route::resource('role', RoleController::class);
 
 
-Route::get('/projects/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
+Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');

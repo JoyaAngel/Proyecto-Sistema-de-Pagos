@@ -9,6 +9,8 @@ class Supplier extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idSupplier';
+
     public function organization()
     {
         return $this->belongsTo(Organization::class, 'suplIdOrganization', 'idOrganization');

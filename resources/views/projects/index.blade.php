@@ -1,6 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!-- Mensaje de éxito al agregar proveedores-->
+@if(session('success'))
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>¡Éxito!</strong> {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+@if(session('warning'))
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Advertencia!</strong> {{ session('warning') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-12 d-flex justify-content-between align-items-center">

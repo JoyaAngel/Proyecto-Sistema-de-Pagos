@@ -48,7 +48,7 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('projects.show', ['project' => Project::find($id)]);
     }
 
     /**
@@ -75,9 +75,28 @@ class ProjectController extends Controller
         //
     }
 
-    public function assignSupplier(Project $project)
+    public function assignSupplier(Project $project, Request $request)
     {
-        $suppliers = Supplier::all();
-        return view('projects.assign-supplier', compact('suppliers'));
+        foreach ($request->supplier_ids as $supplierId) {
+            
+            if ($project->supplier->contains($supplierId)) {
+                $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
+            } else {
+                // Asigna el proveedor si no está ya asignado
+                $project->supplier()->syncWithoutDetaching([$supplierId]);
+                $message = 'Proveedores asignados exitosamente.';
+            }
+        }
+
+        // Si no hubo mensaje, es porque no se asignó nada
+        if (empty($message)) {
+            $message = 'No se asignaron proveedores nuevos.';
+        }
+
+        // Envía el mensaje de retroalimentación al usuario
+        session()->flash('success', $message);
+
+
+        return redirect()->route('project.index');
     }
 }
