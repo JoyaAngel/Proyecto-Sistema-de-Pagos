@@ -13,7 +13,6 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        // tipo de organización 
         $type = $request->query('type') ?? session('type');
     
         $search = $request->query('search');

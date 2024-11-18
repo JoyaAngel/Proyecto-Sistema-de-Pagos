@@ -21,7 +21,6 @@
                 <option value="phone" {{ request('search_by') == 'phone' ? 'selected' : '' }}>Phone</option>
                 <option value="address" {{ request('search_by') == 'address' ? 'selected' : '' }}>Address</option>
             </select>
-    
             <div class="input-group" style="max-width: 400px;">
 
                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
