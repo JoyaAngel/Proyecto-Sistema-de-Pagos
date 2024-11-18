@@ -10,8 +10,37 @@
             @endif
         </h1>
     </div>
-    <div class="container d-flex col-md-12 mb-4">
+    <div class="container d-flex justify-content-between align-items-center mb-4">
+        <!-- Botón Add -->
         <a href="{{ route('organization.create', ['type' => $type]) }}" class="btn btn-primary">Add</a>
+    
+        <!-- Barra de Búsqueda -->
+        <form action="{{ route('organization.index') }}" method="GET" class="d-flex">
+            <!-- Selección del campo de búsqueda -->
+            <select name="search_by" class="form-select me-2" style="max-width: 150px;">
+                <option value="name" {{ request('search_by') == 'name' ? 'selected' : '' }}>Name</option>
+                <option value="email" {{ request('search_by') == 'email' ? 'selected' : '' }}>Email</option>
+                <option value="phone" {{ request('search_by') == 'phone' ? 'selected' : '' }}>Phone</option>
+                <option value="address" {{ request('search_by') == 'address' ? 'selected' : '' }}>Address</option>
+            </select>
+    
+            <div class="input-group" style="max-width: 400px;">
+                <!-- Campo de búsqueda -->
+                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+    
+                <!-- Campo hidden para el tipo -->
+                <input type="hidden" name="type" value="{{ $type }}">
+    
+                <!-- Botón de búsqueda -->
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    
+    </div>
     </div>
     <div class="container d-flex justify-content-center col-md-12">
         <table class="table table table-striped">
@@ -54,5 +83,10 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+     <!-- Paginación -->
+     <div class="d-flex justify-content-center">
+        {{ $organizations->appends(['search' => request('search'), 'search_by' => request('search_by'), 'type' => $type])->links() }}
+
     </div>
 @endsection

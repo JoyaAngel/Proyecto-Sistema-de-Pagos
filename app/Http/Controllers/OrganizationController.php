@@ -13,9 +13,26 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
+        // Obtiene el tipo de organización (clientes o proveedores)
         $type = $request->query('type') ?? session('type');
-        $organizations = Organization::where('type', $type)->get();
-        return view('dashboard.organizations.index', compact('organizations', 'type'));
+    
+        // Obtiene el término de búsqueda y el campo por el cual se va a buscar
+        $search = $request->query('search');
+        $searchBy = $request->query('search_by', 'name'); // Por defecto busca por "name"
+    
+        // Construir la consulta base para el tipo de organización
+        $organizations = Organization::where('type', $type);
+    
+        // Si hay un término de búsqueda y un campo para buscar, filtrar por el campo seleccionado
+        if ($search && $searchBy) {
+            $organizations = $organizations->where($searchBy, 'like', '%' . $search . '%');
+        }
+    
+        // Obtener las organizaciones con paginación
+        $organizations = $organizations->paginate(10);
+    
+        // Retornar la vista con las organizaciones y los parámetros
+        return view('dashboard.organizations.index', compact('organizations', 'type', 'search', 'searchBy'));
     }
 
     /**
