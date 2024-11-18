@@ -25,7 +25,6 @@ class StoreOrganizationRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:100',
-            'type' => '',
             'person' => 'required',
             'rfc' => 'required|string|max:13' . ($idOrganization ? '' : '|unique:organizations,rfc'),
             'email' => 'required|email|max:100' . ($idOrganization ? '' : '|unique:organizations,email'),

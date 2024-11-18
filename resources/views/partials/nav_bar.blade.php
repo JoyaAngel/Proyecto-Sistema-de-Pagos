@@ -13,9 +13,12 @@
                     Organiztions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('organization.index', ['type' => 'c']) }}">Clients</a>
-                    <a class="dropdown-item" href="{{ route('organization.index', ['type' => 's']) }}">Suppliers</a>
+                    <a class="dropdown-item" href="{{ route('client.index')}}">Clients</a>
+                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Suppliers</a>
                 </div>
+            </li>
+            <li class= "nav-item active">
+                <a class="nav-link" href="{{route('project.index')}}">Projects</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
