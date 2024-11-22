@@ -69,6 +69,37 @@
               </thead>
               <tbody>
                 @forelse($projects as $project)
+                  <!-- Modal para Asignar Proveedores -->
+                  <div class="modal fade" id="assignSupplierModal" tabindex="-1" aria-labelledby="assignSupplierModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                          <h5 class="modal-title" id="assignSupplierModalLabel">Asignar Proveedor</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('project.assign.supplier', $project) }}" method="POST">
+                          @csrf
+                          <div class="modal-body">
+                            <input type="hidden" id="modalProjectId" name="project_id">
+                            <p>Asignar proveedores al proyecto: <strong id="modalProjectName"></strong></p>
+                            <div class="form-group">
+                              <label for="suppliers" class="form-label">Proveedores</label>
+                              <select class="form-select" id="suppliers" name="supplier_ids[]" multiple>
+                                @foreach($suppliers as $supplier)
+                                  <option value="{{ $supplier->idSupplier }}">{{ $supplier->organization->name }}</option>
+                                @endforeach
+                              </select>
+                              <small class="text-muted">Mantén presionada la tecla <strong>Ctrl</strong> (o <strong>Cmd</strong> en Mac) para seleccionar múltiples proveedores.</small>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Asignar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                   <tr>
                     <td>{{ $project->idProject }}</td>
                     <td>{{ $project->name }}</td>
@@ -108,38 +139,6 @@
           {{ $projects->links() }} <!-- Paginación -->
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para Asignar Proveedores -->
-<div class="modal fade" id="assignSupplierModal" tabindex="-1" aria-labelledby="assignSupplierModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="assignSupplierModalLabel">Asignar Proveedor</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="{{ route('project.assign.supplier', $project) }}" method="POST">
-        @csrf
-        <div class="modal-body">
-          <input type="hidden" id="modalProjectId" name="project_id">
-          <p>Asignar proveedores al proyecto: <strong id="modalProjectName"></strong></p>
-          <div class="form-group">
-            <label for="suppliers" class="form-label">Proveedores</label>
-            <select class="form-select" id="suppliers" name="supplier_ids[]" multiple>
-              @foreach($suppliers as $supplier)
-                <option value="{{ $supplier->idSupplier }}">{{ $supplier->organization->name }}</option>
-              @endforeach
-            </select>
-            <small class="text-muted">Mantén presionada la tecla <strong>Ctrl</strong> (o <strong>Cmd</strong> en Mac) para seleccionar múltiples proveedores.</small>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Asignar</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
