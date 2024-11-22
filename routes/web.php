@@ -15,3 +15,6 @@ Route::resource('organization', OrganizationController::class);
 
 
 Route::resource('role', RoleController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
