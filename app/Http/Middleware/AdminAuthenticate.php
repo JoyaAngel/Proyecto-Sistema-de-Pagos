@@ -18,7 +18,8 @@ class AdminAuthenticate
     {
         if(Auth::user()){
             if(Auth::user()->type == 'a')
-                return redirect('/index');
+                return $next($request);
+                //return redirect('/index');
         }
         return redirect('/user');
     }

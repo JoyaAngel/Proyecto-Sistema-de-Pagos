@@ -13,9 +13,6 @@ Route::get('/user', function () {
     return view('user');
 });
 
-Route::get('/index', function () {
-    return view('index');
-});
 /*
 Rutas para el recurso Organization
 */
@@ -25,6 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {      //Cambiamos el nombre para q no choque con la de arriba
-    return view('dashboard.home');
+Route::get('/index', function () {      //Cambiamos el nombre para q no choque con la de arriba
+    return view('index');
 })->middleware(AdminAuthenticate::class);
