@@ -45,7 +45,7 @@
     </div>
 
      <div class="d-flex justify-content-center">
-        {{ $organizations->appends(['search' => request('search'), 'search_by' => request('search_by'), 'type' => $type])->links() }}
+        {{ $organizations->appends(['search' => request('search'), 'search_by' => request('search_by')])->links() }}
 
     </div>
 @endsection

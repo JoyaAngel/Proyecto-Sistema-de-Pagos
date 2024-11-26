@@ -5,6 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+            @auth
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/') }}">Home</a>
             </li>
@@ -29,6 +30,7 @@
                     <a class="dropdown-item" href="#">Advances</a>
                 </div>
             </li>
+            @endauth
         </ul>
         <ul class="navbar-nav ms-auto">
             <!-- Authentication Links -->

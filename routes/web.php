@@ -10,24 +10,24 @@ use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Route::get('/user', function () {
     return view('user');
-});
+})->middleware('auth');
 
 Auth::routes();
 /*
 Rutas para el recurso Organization
 */
-Route::resource('organization', OrganizationController::class);
-Route::resource('client', ClientController::class);
-Route::resource('supplier', SupplierController::class);
-Route::resource('project', ProjectController::class);
+Route::resource('organization', OrganizationController::class)->middleware('auth');
+Route::resource('client', ClientController::class)->middleware('auth');
+Route::resource('supplier', SupplierController::class)->middleware('auth');
+Route::resource('project', ProjectController::class)->middleware('auth');
 Route::resource('role', RoleController::class);
 
 Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
 
-Route::get('/index', function () {      //Cambiamos el nombre para q no choque con la de arriba
-    return view('index');
-})->middleware(AdminAuthenticate::class);
+Route::get('/home', function () {      //Cambiamos el nombre para q no choque con la de arriba
+    return view('home');
+})->middleware(AdminAuthenticate::class)->name('home');
