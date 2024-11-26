@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationRequest;
+use App\Models\Client;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -13,20 +14,8 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        $type = $request->query('type') ?? session('type');
-    
-        $search = $request->query('search');
-        $searchBy = $request->query('search_by', 'name');
-    
-        $organizations = Organization::where('type', $type);
-    
-        if ($search && $searchBy) {
-            $organizations = $organizations->where($searchBy, 'like', '%' . $search . '%');
-        }
-    
-        $organizations = $organizations->paginate(10);
-    
-        return view('dashboard.organizations.index', compact('organizations', 'type', 'search', 'searchBy'));
+        $organizations = Organization::get();
+        return view('organizations.index', compact('organizations'));
     }
 
     /**
@@ -65,7 +54,7 @@ class OrganizationController extends Controller
      */
     public function edit(Organization $organization)
     {
-        return view('dashboard.organizations.edit', compact('organization'));
+        return view('organizations.edit', compact('organization'));
     }
 
     /**
@@ -77,7 +66,7 @@ class OrganizationController extends Controller
 
         $organization->update($data);
 
-        return redirect()->route('organization.index', ['type' => $organization->type])->with('status', 'Organization updated successfully');
+        return redirect()->route('organization.index')->with('status', 'Organization updated successfully');
     }
 
     /**

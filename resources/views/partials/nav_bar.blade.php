@@ -12,10 +12,13 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Organizations
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                    <a class="dropdown-item" href="{{ route('organization.index', ['type' => 'c']) }}">Clients</a>
-                    <a class="dropdown-item" href="{{ route('organization.index', ['type' => 's']) }}">Suppliers</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('client.index')}}">Clients</a>
+                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Suppliers</a>
                 </div>
+            </li>
+            <li class= "nav-item active">
+                <a class="nav-link" href="{{route('project.index')}}">Projects</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

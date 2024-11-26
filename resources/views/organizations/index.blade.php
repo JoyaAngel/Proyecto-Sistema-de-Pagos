@@ -1,42 +1,6 @@
 @extends('...layouts.app')
 
 @section('content')
-    <div class="container d-flex justify-content-center mb-4">
-        <h1 class="display-4">
-            @if($type == 'c')
-                Clients
-            @else
-                Suppliers
-            @endif
-        </h1>
-    </div>
-    <div class="container d-flex justify-content-between align-items-center mb-4">
-        <a href="{{ route('organization.create', ['type' => $type]) }}" class="btn btn-primary">Add</a>
-    
-        <!-- Barra de Búsqueda -->
-        <form action="{{ route('organization.index') }}" method="GET" class="d-flex">
-            <select name="search_by" class="form-select me-2" style="max-width: 150px;">
-                <option value="name" {{ request('search_by') == 'name' ? 'selected' : '' }}>Name</option>
-                <option value="email" {{ request('search_by') == 'email' ? 'selected' : '' }}>Email</option>
-                <option value="phone" {{ request('search_by') == 'phone' ? 'selected' : '' }}>Phone</option>
-                <option value="address" {{ request('search_by') == 'address' ? 'selected' : '' }}>Address</option>
-            </select>
-            <div class="input-group" style="max-width: 400px;">
-
-                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
-    
-                <input type="hidden" name="type" value="{{ $type }}">
-  
-                <button class="btn btn-outline-secondary" type="submit">
-                    <i class="bi bi-search"></i> Search
-                </button>
-            </div>
-        </form>
-    </div>
-    
-    
-    </div>
-    </div>
     <div class="container d-flex justify-content-center col-md-12">
         <table class="table table table-striped">
             <thead>
@@ -67,7 +31,7 @@
                         <td>{{ $organization->address }}</td>
                         <td>
                             <a href="{{ route('organization.edit', $organization->idOrganization) }}" class="btn btn-primary">Edit</a>
-                            @include('..partials.eliminacion')
+                            @include('organizations.partials.eliminacion')
                             <form style="display: inline;">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
                                     Delete

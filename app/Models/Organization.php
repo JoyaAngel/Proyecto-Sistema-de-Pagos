@@ -15,8 +15,16 @@ class Organization extends Model
         'rfc',
         'address',
         'email',
-        'phone',
-        'type'
+        'phone'
     ];
 
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'clieIdOrganization');
+    }
+
+    public function supplier()
+    {
+        return $this->hasOne(Supplier::class, 'suplIdOrganization');
+    }
 }

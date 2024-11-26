@@ -30,5 +30,5 @@
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
       <div class="col-6">
-        <a href="{{ route('organization.index', ['type' => isset($type) ? $type : $organization->type]) }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('dashboard')}}" class="btn btn-secondary">Cancel</a>
     </div>
