@@ -45,7 +45,7 @@
             <h1>¡Has iniciado sesión correctamente!</h1>
             <p>Bienvenido, {{ Auth::user()->name }}. Estás conectado como usuario mortal.</p>
             <p>Te hemos redirigido a esta página porque no eres un administrador.</p>
-            <a href="{{ url('/dashboard') }}" class="btn btn-primary">Ir al Dashboard</a>
+            <a href="{{ url('/') }}" class="btn btn-primary">Ir al Dashboard</a>
         </div>
     </div>
 
