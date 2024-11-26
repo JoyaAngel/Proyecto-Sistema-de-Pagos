@@ -1,4 +1,6 @@
-    @csrf
+
+   
+   @csrf
     <div class="col-md-6">
         <label for="inputName" class="form-label">Name</label>
         <input type="name" class="form-control" name="name" value="{{ old('name', $organization->name) }}">
