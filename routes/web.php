@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -25,6 +26,7 @@ Route::resource('client', ClientController::class)->middleware('auth');
 Route::resource('supplier', SupplierController::class)->middleware('auth');
 Route::resource('project', ProjectController::class)->middleware('auth');
 Route::resource('role', RoleController::class);
+Route::resource('user', UserController::class);
 
 Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
 

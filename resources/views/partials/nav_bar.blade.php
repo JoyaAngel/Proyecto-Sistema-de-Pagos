@@ -21,15 +21,26 @@
             <li class= "nav-item active">
                 <a class="nav-link" href="{{route('project.index')}}">Projects</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Transactions
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                    <a class="dropdown-item" href="#">Payments</a>
-                    <a class="dropdown-item" href="#">Advances</a>
-                </div>
-            </li>
+            @if (Auth::user()->type == 'a')
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Transactions
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" href="#">Payments</a>
+                        <a class="dropdown-item" href="#">Advances</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Administration
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" href="{{ route('user.create')}}">Register Users</a>
+                        <a class="dropdown-item" href="#">Other admin func</a>
+                    </div>
+                </li>
+            @endif
             @endauth
         </ul>
         <ul class="navbar-nav ms-auto">
