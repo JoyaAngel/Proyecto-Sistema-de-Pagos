@@ -26,7 +26,7 @@ class StoreProjectRequest extends FormRequest
             'start_date' => 'required|date',
             'end_date' => 'date|after:start_date',
             'subtotal' => 'required|numeric',
-            'projIdClient' => 'required|exists:clients,idClient',
+            'projIdClient' => 'required|exists:clients,idClient|unique:projects,projIdClient',
             'concept' => 'nullable',
             'status' => 'nullable',
             'comments' => 'nullable|string|max:200',
@@ -49,8 +49,9 @@ class StoreProjectRequest extends FormRequest
             'end_date.after' => 'Project end date must be after the start date',
             'subtotal.required' => 'Project subtotal is required',
             'subtotal.numeric' => 'Project subtotal must be a number',
-            'projIdClient.required' => 'Project organization is required',
-            'projIdClient.exists' => 'Project organization must be a valid organization',
+            'projIdClient.required' => 'Project client is required',
+            'projIdClient.exists' => 'Project client must be a valid organization',
+            'projIdClient.unique' => 'This client already has a project',
         ];        
     }
 

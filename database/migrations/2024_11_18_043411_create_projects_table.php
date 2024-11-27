@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id('idProject')->autoIncrement();
-            $table->foreignId('projIdClient');
+            $table->foreignId('projIdClient')->unique();
             $table->string('name', 100);
             $table->date('start_date');
             $table->date('end_date')->nullable();
