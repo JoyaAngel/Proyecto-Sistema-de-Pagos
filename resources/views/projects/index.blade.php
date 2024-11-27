@@ -86,7 +86,7 @@
                               <label for="suppliers" class="form-label">Proveedores</label>
                               <select class="form-select" id="suppliers" name="supplier_ids[]" multiple>
                                 @foreach($suppliers as $supplier)
-                                  <option value="{{ $supplier->idSupplier }}">{{ $supplier->organization->name }}</option>
+                                  <option value="{{ $supplier->id }}">{{ $supplier->organization->name }}</option>
                                 @endforeach
                               </select>
                               <small class="text-muted">Mantén presionada la tecla <strong>Ctrl</strong> (o <strong>Cmd</strong> en Mac) para seleccionar múltiples proveedores.</small>
@@ -101,29 +101,31 @@
                     </div>
                   </div>
                   <tr>
-                    <td>{{ $project->idProject }}</td>
+                    <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->client->organization->name ?? 'N/A' }}</td>
                     <td>
                       <span class="badge 
-                        {{ $project->idProject === 1 ? 'bg-success' : 'bg-secondary' }}">
-                        {{ $project->end_date ? ($project->end_date >= now() ? 'Activo' : 'Terminado') : 'Sin Fecha de Finalización' }}
+                        {{ $project->id === 1 ? 'bg-success' : 'bg-secondary' }}">
+                        {{ $project->status === 'a' ? 'Activo' : ($project->status === 'i' ? 'Inactivo' : 'Terminado') }}
 
                       </span>
                     </td>
                     <td>{{ $project->start_date }}</td>
                     <td>
-                      <a href="{{ route('project.show', $project->idProject) }}" class="btn btn-info btn-sm">
+                      <a href="{{ route('project.show', $project->id) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-eye"></i> Ver
                       </a>
-                      <a href="{{ route('project.edit', $project->idProject) }}" class="btn btn-warning btn-sm">
+                      @if (Auth::user()->type === 'a')
+                      <a href="{{ route('project.edit', $project->id) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil"></i> Editar
                       </a>
                       <button type="button" class="btn btn-primary btn-sm assign-supplier-btn" 
-                              data-id="{{ $project->idProject }}" data-name="{{ $project->name }}" 
+                              data-id="{{ $project->id }}" data-name="{{ $project->name }}" 
                               data-bs-toggle="modal" data-bs-target="#assignSupplierModal">
                         <i class="bi bi-link"></i> Asignar Proveedor
                       </button>
+                      @endif
                     </td>
                   </tr>
                 @empty

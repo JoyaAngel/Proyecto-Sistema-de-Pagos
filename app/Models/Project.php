@@ -8,26 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'idProject';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
-        'projIdClient',
+        'client_id',
         'start_date',
         'end_date',
         'subtotal',
         'tax',
         'total',
         'concept',
+        'status',
         'comments'
     ];
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'projIdClient', 'idClient');
+        return $this->belongsTo(Client::class);
     }
 
-    public function supplier()
+    public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class,'project_suppliers', 'prsuIdProject', 'prsuIdSupplier');
+        return $this->belongsToMany(Supplier::class);
+    }
+
+    public function advances()
+    {
+        return $this->hasMany(Advance::class);
     }
 }

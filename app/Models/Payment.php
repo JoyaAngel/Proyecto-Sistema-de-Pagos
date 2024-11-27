@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class Payment extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
 
-    public function organization()
+    public function transaction()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Transaction::class);
     }
 
-    public function proyects()
+    public function projectSupplier()
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsTo(ProjectSupplier::class);
     }
 }

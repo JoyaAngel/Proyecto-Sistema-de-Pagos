@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Supplier;
+use App\Models\Transaction;
 
 class ProjectController extends Controller
 {
@@ -23,24 +25,22 @@ class ProjectController extends Controller
     public function create()
     {
         $clients = Client::paginate(10);
-        return view('projects.create', compact('clients'));
+        $project = new Project();
+        return view('projects.create', compact('clients', 'project'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $tax = $request->subtotal * 0.16;
-        $total = $request->subtotal + $tax;
+        // validate the request
+        $project = new Project($request->validated());
+        $project->tax =  $project->subtotal * 0.16;
+        $project->total = $project->subtotal + $project->tax;
+        $project->save();
 
-        // append the new fields to the request
-        $request->request->add(['tax' => $tax, 'total' => $total]);
-
-        // create the project using eloquent matching the fields
-        Project::create($request->all());
-
-        return redirect()->route('project.index');
+        return redirect()->route('project.index')->with('status', 'Project created successfully');
     }
 
     /**
@@ -48,7 +48,18 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        return view('projects.show', ['project' => Project::find($id)]);
+        $project = Project::find($id);
+
+        $totalAdvance = Transaction::whereHas('advance', function ($query) use ($id) {
+            $query->where('project_id', $id); // Filtrar por el proyecto
+        })->sum('amount');
+
+
+
+
+        $diff = $project->total - $totalAdvance;
+
+        return view('projects.show', compact('project', 'totalAdvance', 'diff'));
     }
 
     /**
@@ -56,15 +67,23 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $project = Project::find($id);
+        $clients = Client::paginate(10);
+        return view('projects.edit', compact('project', 'clients'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreProjectRequest $request, Project $project)
     {
-        //
+        $data = $request->validated();
+        $data['tax'] = $data['subtotal'] * 0.16;
+        $data['total'] = $data['subtotal'] + $data['tax'];
+
+        $project->update($data);
+
+        return redirect()->route('project.index')->with('status', 'Project updated successfully');
     }
 
     /**
@@ -79,7 +98,7 @@ class ProjectController extends Controller
     {
         foreach ($request->supplier_ids as $supplierId) {
             
-            if ($project->supplier->contains($supplierId)) {
+            if ($project->suppliers->contains($supplierId)) {
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->id('idClient')->autoIncrement();
-            $table->foreignId('clieIdOrganization');
+            $table->id()->autoIncrement();
+            $table->foreignId('organization_id');
 
-            $table->foreign('clieIdOrganization')->references('idOrganization')->on('organizations')->onDelete('cascade')->unique();
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade')->unique();
             $table->timestamps();
         });
     }

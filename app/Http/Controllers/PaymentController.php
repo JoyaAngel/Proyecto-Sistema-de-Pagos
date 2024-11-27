@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\ProjectSupplier;
+use App\Models\Transaction;
+use App\Models\Payment;
 
-class UserController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,23 +22,28 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.register_form');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $supplier_id = $request->supplier_id;
+        $project_id = $request->project_id;
+        $project_supplier = ProjectSupplier::where('project_id', $project_id)    
+                ->where('supplier_id', $supplier_id)
+                ->first();
 
-        $validated['type'] = $validated['type'] == 'admin' ? 'a' : 'u';
+        $transaction = Transaction::create($request->all());
 
-        $validated['password'] = Hash::make($validated['password']);
+        $payment = new Payment();
+        $payment->project_supplier_id = $project_supplier->id;
+        $transaction->payment()->save($payment);
 
-        User::create($validated);
+        return back()->with('status', 'Payment registered successfully');
 
-        return back()->with('status', 'User created successfully');
     }
 
     /**
@@ -46,7 +51,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        dd($id);
     }
 
     /**
