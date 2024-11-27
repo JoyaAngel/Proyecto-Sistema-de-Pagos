@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id('idProject')->autoIncrement();
-            $table->foreignId('projIdClient')->unique();
+            $table->id()->autoIncrement();
+            $table->foreignId('client_id');
             $table->string('name', 100);
             $table->date('start_date');
             $table->date('end_date')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('comments', 200)->nullable();
             $table->timestamps();
 
-            $table->foreign('projIdClient')->references('idClient')->on('clients')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

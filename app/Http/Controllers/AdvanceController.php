@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\Transaction;
+use App\Models\Advance;
 
-class UserController extends Controller
+class AdvanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,23 +21,22 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.register_form');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $transaction = Transaction::create($request->all());
 
-        $validated['type'] = $validated['type'] == 'admin' ? 'a' : 'u';
+        $advance = new Advance();
+        $advance->project_id = request('project_id');
 
-        $validated['password'] = Hash::make($validated['password']);
+        $transaction->advance()->save($advance);
 
-        User::create($validated);
-
-        return back()->with('status', 'User created successfully');
+        return back()->with('status', 'Advance registered successfully');
     }
 
     /**

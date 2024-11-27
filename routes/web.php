@@ -9,6 +9,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdvanceController;
 
 Route::get('/', function () {
     return view('index');
@@ -27,6 +29,8 @@ Route::resource('supplier', SupplierController::class)->middleware('auth');
 Route::resource('project', ProjectController::class)->middleware('auth');
 Route::resource('role', RoleController::class);
 Route::resource('user', UserController::class);
+Route::resource('payment', PaymentController::class);
+Route::resource('advance', AdvanceController::class);
 
 Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
 

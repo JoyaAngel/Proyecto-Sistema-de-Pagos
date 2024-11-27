@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->float('amount')->required();
-            $table->date('date')->required();
-            $table->enum('payment_method', ['cash', 'credit', 'debit', 'check'])->required();
-            $table->string('reference', 16)->required();
+            $table->foreignId('transaction_id');
+            $table->foreignId('project_supplier_id');
+
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->unique();
+            $table->foreign('project_supplier_id')->references('id')->on('project_supplier')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('payments');
     }
 };

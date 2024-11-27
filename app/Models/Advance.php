@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class Advance extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
 
-    public function organization()
+    public function project()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Project::class);
     }
 
-    public function proyects()
+    public function transaction()
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsTo(Transaction::class);
     }
+
 }

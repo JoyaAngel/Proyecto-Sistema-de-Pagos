@@ -19,7 +19,7 @@
             <div class="mb-3">
               <label for="client" class="form-label">Cliente</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="projIdClient" name="projIdClient" placeholder="Selecciona un cliente" readonly value="{{ old('projIdClient', $project->projIdClient) }}">
+                <input type="text" class="form-control" id="cliente_id" name="cliente_id" placeholder="Selecciona un cliente" readonly value="{{ old('client_id', $project->client_id)}}">
                 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal">
                     <i class="bi bi-search"></i> Buscar Cliente
@@ -108,11 +108,11 @@
             <tbody id="clientTableBody">
               @foreach ($clients as $client)
                 <tr>
-                  <td>{{ $client->idClient }}</td>
+                  <td>{{ $client->id }}</td>
                   <td>{{ $client->organization->name }}</td>
                   <td>
                     <button type="button" class="btn btn-primary select-client"
-                            data-id="{{ $client->idClient }}"
+                            data-id="{{ $client->id }}"
                             data-name="{{ $client->organization->name }}">
                       Seleccionar
                     </button>
@@ -138,7 +138,7 @@
             button.addEventListener('click', function() {
                 var clientId = this.getAttribute('data-id');
 
-                document.getElementById('projIdClient').value = clientId;
+                document.getElementById('client_id').value = clientId;
 
                 // Cerrar el modal
                 var modalElement = document.getElementById('clientModal');
