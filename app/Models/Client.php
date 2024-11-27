@@ -12,11 +12,11 @@ class Client extends Model
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class, 'clieIdOrganization', 'idOrganization');
+        return $this->belongsTo(Organization::class);
     }
 
     public function proyects()
     {
-        return $this->hasMany(Project::class, 'idClient');
+        return $this->hasMany(Project::class);
     }
 }

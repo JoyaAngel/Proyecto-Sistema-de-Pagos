@@ -9,15 +9,15 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'idSupplier';
+    protected $primaryKey = 'id';
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class, 'suplIdOrganization', 'idOrganization');
+        return $this->belongsTo(Organization::class);
     }
 
     public function proyects()
     {
-        return $this->belongsToMany(Project::class,'proyect_suppliers','prsuIdSupplier','prsuIdProyect');
+        return $this->belongsToMany(Project::class);
     }
 }

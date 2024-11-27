@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'idOrganization';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'person',
@@ -20,11 +20,11 @@ class Organization extends Model
 
     public function client()
     {
-        return $this->hasOne(Client::class, 'clieIdOrganization');
+        return $this->hasOne(Client::class);
     }
 
     public function supplier()
     {
-        return $this->hasOne(Supplier::class, 'suplIdOrganization');
+        return $this->hasOne(Supplier::class);
     }
 }

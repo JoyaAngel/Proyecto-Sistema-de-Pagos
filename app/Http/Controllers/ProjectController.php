@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Supplier;
+use App\Models\Transaction;
 
 class ProjectController extends Controller
 {
@@ -48,7 +49,18 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        return view('projects.show', ['project' => Project::find($id)]);
+        $project = Project::find($id);
+
+        $totalAdvance = Transaction::whereHas('advance', function ($query) use ($id) {
+            $query->where('project_id', $id); // Filtrar por el proyecto
+        })->sum('amount');
+
+
+
+
+        $diff = $project->total - $totalAdvance;
+
+        return view('projects.show', compact('project', 'totalAdvance', 'diff'));
     }
 
     /**
@@ -79,7 +91,7 @@ class ProjectController extends Controller
     {
         foreach ($request->supplier_ids as $supplierId) {
             
-            if ($project->supplier->contains($supplierId)) {
+            if ($project->suppliers->contains($supplierId)) {
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado

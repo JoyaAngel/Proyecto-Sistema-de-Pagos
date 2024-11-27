@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->id('idSupplier')->autoIncrement();
-            $table->foreignId('suplIdOrganization');
-            $table->foreign('suplIdOrganization')->references('idOrganization')->on('organizations')->onDelete('cascade')->unique();
+            $table->id()->autoIncrement();
+            $table->foreignId('organization_id');
+            
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade')->unique();
             $table->timestamps();
         });
     }
