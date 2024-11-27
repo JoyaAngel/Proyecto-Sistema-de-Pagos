@@ -30,5 +30,5 @@
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
       <div class="col-6">
-        <a href="{{ route('home')}}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url('/')}}" class="btn btn-secondary">Cancel</a>
     </div>

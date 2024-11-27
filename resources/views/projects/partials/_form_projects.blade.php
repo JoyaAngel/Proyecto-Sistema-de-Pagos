@@ -12,14 +12,14 @@
             <!-- Nombre del Proyecto -->
             <div class="mb-3">
                 <label for="projectName" class="form-label">Nombre del Proyecto</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa el nombre del proyecto">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa el nombre del proyecto" value="{{ old('name', $project->name) }}">
             </div>
 
             <!-- Cliente -->
             <div class="mb-3">
               <label for="client" class="form-label">Cliente</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="projIdClient" name="projIdClient" placeholder="Selecciona un cliente" readonly>
+                <input type="text" class="form-control" id="projIdClient" name="projIdClient" placeholder="Selecciona un cliente" readonly value="{{ old('projIdClient', $project->projIdClient) }}">
                 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal">
                     <i class="bi bi-search"></i> Buscar Cliente
@@ -31,11 +31,11 @@
             <div class="row mb-4">
               <div class="col-md-6">
                   <label for="start_date" class="form-label">Fecha de Inicio</label>
-                  <input type="date" class="form-control" id="start_date" name="start_date">
+                  <input type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date', $project->start_date) }}">
               </div>
               <div class="col-md-6">
                   <label for="end_date" class="form-label">Fecha de Fin</label>
-                  <input type="date" class="form-control" id="end_date" name="end_date">
+                  <input type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date', $project->end_date) }}">
               </div>
             </div>
 
@@ -45,16 +45,24 @@
                 <label for="subtotal" class="form-label">Subtotal</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="subtotal" name="subtotal" placeholder="0.00" step="0.01" min="0" oninput="limitDecimals(this)">
+                  <input type="number" class="form-control" id="subtotal" name="subtotal" placeholder="0.00" step="0.01" min="0" oninput="limitDecimals(this)" value="{{ old('subtotal', $project->subtotal) }}">
                 </div>
               </div>
               <div class="col-md-8">
                 <label for="concept" class="form-label">Concepto</label>
                 <select class="form-select" id="concept" name="concept">
                   <option value="" selected disabled>Selecciona un concepto</option>
-                  <option value="1">Opción 1</option>
-                  <option value="2">Opción 2</option>
-                  <option value="3">Opción 3</option>
+                  <option value="1" {{ old('concept', $project->concept) == '1' ? 'selected' : '' }}>Opción 1</option>
+                  <option value="2" {{ old('concept', $project->concept) == '2' ? 'selected' : '' }}>Opción 2</option>
+                  <option value="3" {{ old('concept', $project->concept) == '3' ? 'selected' : '' }}>Opción 3</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="status" class="form-label">Estado</label>
+                <select class="form-select" id="status" name="status">
+                  <option value="a" {{ old('status', $project->status) == 'a' ? 'selected' : '' }}>Activo</option>
+                  <option value="i" {{ old('status', $project->status) == 'i' ? 'selected' : '' }}>Inactivo</option>
+                  <option value="t" {{ old('status', $project->status) == 't' ? 'selected' : '' }}>Terminado</option>
                 </select>
               </div>
             </div>
@@ -62,7 +70,7 @@
             <!-- Comentarios-->
             <div class="mb-3">
                 <label for="projectDescription" class="form-label">Comentarios</label>
-                <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Comentarios/Notas"></textarea>
+                <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Comentarios/Notas">{{ old('comments', $project->comments) }}</textarea>
             </div>
 
             <!-- Botones -->
@@ -71,7 +79,7 @@
                 <button type="submit" class="btn btn-primary w-100">Guardar Proyecto</button>
               </div>
               <div class="col-md-6">
-                <button type="reset" class="btn btn-secondary w-100">Cancelar</button>
+                <a href="{{ route('project.index') }}" class="btn btn-secondary w-100">Cancelar</a>
               </div>
             </div>
           </form>

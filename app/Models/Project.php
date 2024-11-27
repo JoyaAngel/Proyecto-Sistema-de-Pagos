@@ -18,6 +18,7 @@ class Project extends Model
         'tax',
         'total',
         'concept',
+        'status',
         'comments'
     ];
 

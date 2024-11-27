@@ -107,7 +107,7 @@
                     <td>
                       <span class="badge 
                         {{ $project->idProject === 1 ? 'bg-success' : 'bg-secondary' }}">
-                        {{ $project->end_date ? ($project->end_date >= now() ? 'Activo' : 'Terminado') : 'Sin Fecha de Finalización' }}
+                        {{ $project->status === 'a' ? 'Activo' : ($project->status === 'i' ? 'Inactivo' : 'Terminado') }}
 
                       </span>
                     </td>
