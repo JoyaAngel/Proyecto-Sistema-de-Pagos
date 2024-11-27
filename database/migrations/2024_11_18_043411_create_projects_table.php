@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('tax');
             $table->float('total');
             $table->string('concept', 200)->nullable();
+            $table->char('status', 1);
             $table->string('comments', 200)->nullable();
             $table->timestamps();
 

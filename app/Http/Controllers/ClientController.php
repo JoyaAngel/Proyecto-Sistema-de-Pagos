@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrganizationRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Organization;
@@ -30,16 +31,19 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreOrganizationRequest $request)
     {
+        
+        $validatedData = $request->validated();
+
         $organization = Organization::create(
             [
-                'name' => $request->name,
-                'person' => $request->person,
-                'rfc' => $request->rfc,
-                'address' => $request->address,
-                'email' => $request->email,
-                'phone' => $request->phone
+            'name' => $validatedData['name'],
+            'person' => $validatedData['person'],
+            'rfc' => $validatedData['rfc'],
+            'address' => $validatedData['address'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone']
             ]
         );
         $client = new Client();
