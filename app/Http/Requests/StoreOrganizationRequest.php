@@ -28,7 +28,7 @@ class StoreOrganizationRequest extends FormRequest
             'person' => 'required',
             'rfc' => 'required|string|max:13' . ($id ? '' : '|unique:organizations,rfc'),
             'email' => 'required|email|max:100' . ($id ? '' : '|unique:organizations,email'),
-            'phone' => 'required|string|max:10',
+            'phone' => 'required|string|max:20',
             'address' => 'required|string|max:150',
         ];
     }

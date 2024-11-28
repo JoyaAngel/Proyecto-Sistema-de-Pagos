@@ -11,6 +11,8 @@ class Supplier extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = ['organization_id'];
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);

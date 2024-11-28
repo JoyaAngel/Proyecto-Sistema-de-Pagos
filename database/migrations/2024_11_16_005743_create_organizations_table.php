@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name', 100);
+            $table->string('name');
             //$table->char('type', 1);
-            $table->char('person', 1);
-            $table->char('rfc', 13)->unique();
-            $table->string('address', 150);
-            $table->string('email', 100)->unique();
-            $table->char('phone', 20);
+            $table->enum('person', ['l', 'n']);
+            $table->string('rfc', 13)->unique();
+            $table->string('address');
+            $table->string('email')->unique();
+            $table->string('phone');
             $table->timestamps('');
         });
     }

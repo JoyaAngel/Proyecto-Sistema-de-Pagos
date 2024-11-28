@@ -12,6 +12,12 @@ class ProjectSupplier extends Model
     protected $table = 'project_supplier';
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'project_id',
+        'supplier_id',
+        'service_cost'
+    ];
+
     public function payments()
     {
         return $this->hasMany(Payment::class);
