@@ -30,5 +30,12 @@
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
       <div class="col-6">
-        <a href="{{ url('/')}}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ 
+          (url()->previous() && strpos(url()->previous(), '/client') !== false) 
+          ? route('client.index') 
+          : (strpos(url()->previous(), '/supplier') !== false 
+              ? route('supplier.index') 
+              : url('/')) 
+      }}" class="btn btn-secondary">Cancelar</a>
+      
     </div>
