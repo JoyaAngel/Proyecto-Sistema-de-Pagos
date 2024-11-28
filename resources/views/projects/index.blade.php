@@ -107,7 +107,7 @@
                     <td>{{ $project->client->organization->name ?? 'N/A' }}</td>
                     <td>
                       <span class="badge 
-                        {{ $project->id === 1 ? 'bg-success' : 'bg-secondary' }}">
+                        {{ $project->status === 'a' ? 'bg-success' : ($project->status === 'i' ? 'bg-warning' : 'bg-secondary') }}">
                         {{ $project->status === 'a' ? 'Activo' : ($project->status === 'i' ? 'Inactivo' : 'Terminado') }}
 
                       </span>
@@ -138,14 +138,15 @@
             </table>
           </div>
         </div>
-        <div class="card-footer text-muted">
-          {{ $projects->links() }} <!-- Paginación -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $projects->links('pagination::bootstrap-4') }}
         </div>
       </div>
     </div>
   </div>
 </div>
 </div>
+
 <script>
   // Configurar el modal para asignar proveedores
   document.addEventListener('DOMContentLoaded', function () {

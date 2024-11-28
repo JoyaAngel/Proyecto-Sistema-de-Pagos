@@ -102,7 +102,7 @@ class ProjectController extends Controller
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado
-                $project->supplier()->syncWithoutDetaching([$supplierId]);
+                $project->suppliers()->syncWithoutDetaching([$supplierId]);
                 $message = 'Proveedores asignados exitosamente.';
             }
         }
