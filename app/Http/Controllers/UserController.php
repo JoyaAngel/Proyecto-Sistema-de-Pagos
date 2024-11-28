@@ -6,6 +6,8 @@ use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.index', ['users' => User::paginate(10)]);
     }
 
     /**
@@ -68,8 +70,47 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return back()->with('status', 'User deleted successfully');
+    }
+
+    public function passwordReset($id)
+    {
+        $user = User::find($id);
+
+        $newPassword = Str::random(10);
+
+        $user->update([
+            'password' => Hash::make($newPassword),
+            'must_change_password' => true
+        ]);
+
+        session()->flash('password', $newPassword);
+
+        return back();
+    }
+
+    public function changePassword()
+    {
+        return view('users.change_password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        $user->update([
+            'password' => Hash::make($request->password),
+            'must_change_password' => false
+        ]);
+
+        return redirect()->route('index')->with('status', 'Password updated successfully');
     }
 }
