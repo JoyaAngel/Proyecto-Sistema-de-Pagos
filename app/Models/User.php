@@ -22,6 +22,7 @@ class User extends Authenticatable
         'type',
         'password',
         'question',
+        'must_change_password'
     ];
 
     /**
