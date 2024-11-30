@@ -7,7 +7,7 @@
             <h4>Registro de Proyecto</h4>
         </div>
         <div class="card-body">
-          <form action="{{route('project.store')}}" method="POST">
+          <form action="{{ route('project.store') }}" method="POST">
             @csrf
             <!-- Nombre del Proyecto -->
             <div class="mb-3">
@@ -19,8 +19,9 @@
             <div class="mb-3">
               <label for="client" class="form-label">Cliente</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="cliente_id" name="cliente_id" placeholder="Selecciona un cliente" readonly value="{{ old('client_id', $project->client_id)}}">
-                
+                <!-- Campo oculto para enviar el ID del cliente -->
+                <input type="hidden" id="client_id" name="client_id" value="{{ old('client_id', $project->client_id) }}">
+                <input type="text" class="form-control" id="client_name" name="client_name" placeholder="Selecciona un cliente" readonly value="{{ old('client_name', $project->client_name) }}">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal">
                     <i class="bi bi-search"></i> Buscar Cliente
                 </button>
@@ -88,6 +89,7 @@
     </div>
   </div>
 </div>
+
 <!-- Modal para Buscar Cliente -->
 <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -133,18 +135,27 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const selectButtons = document.querySelectorAll('.select-client');
-        
+        const clientIdInput = document.getElementById('client_id');
+        const clientNameInput = document.getElementById('client_name');
+
         selectButtons.forEach(button => {
             button.addEventListener('click', function() {
-                var clientId = this.getAttribute('data-id');
+                const clientId = this.getAttribute('data-id');
+                const clientName = this.getAttribute('data-name');
 
-                document.getElementById('client_id').value = clientId;
+                // Actualiza el campo hidden con el ID del cliente
+                clientIdInput.value = clientId;
+                // Actualiza el campo de texto visible con el nombre del cliente
+                clientNameInput.value = clientName;
 
-                // Cerrar el modal
-                var modalElement = document.getElementById('clientModal');
-                var modal = new bootstrap.Modal(modalElement);
-                modal.hide();  // Cierra el modal
+                // Cierra el modal
+                const modalElement = document.getElementById('clientModal');
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                modal.hide();
             });
         });
     });
 </script>
+
+
+

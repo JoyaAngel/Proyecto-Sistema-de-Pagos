@@ -35,6 +35,8 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         // validate the request
+        $validated = $request->validated();
+        
         $project = new Project($request->validated());
         $project->tax =  $project->subtotal * 0.16;
         $project->total = $project->subtotal + $project->tax;
