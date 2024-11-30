@@ -92,7 +92,15 @@
                               </select>
                               <small class="text-muted">Mantén presionada la tecla <strong>Ctrl</strong> (o <strong>Cmd</strong> en Mac) para seleccionar múltiples proveedores.</small>
                             </div>
-                          </div>
+                           <!-- Campo para el monto a asignar -->
+                            <div class="form-group mt-3">
+                              <label for="amount" class="form-label">Cantidad a Pagar</label>
+                              <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="amount" name="amount" required min="0" step="0.01">
+                              </div>
+                              <small class="text-muted">Ingresa la cantidad total a pagar que se asignará a los proveedores seleccionados.</small>
+                            </div>
                           <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Asignar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

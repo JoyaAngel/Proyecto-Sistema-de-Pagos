@@ -98,13 +98,20 @@ class ProjectController extends Controller
 
     public function assignSupplier(Project $project, Request $request)
     {
+
+        $amount = $request->input('amount');
+
         foreach ($request->supplier_ids as $supplierId) {
             
             if ($project->suppliers->contains($supplierId)) {
+
+                $project->suppliers()->updateExistingPivot($supplierId, ['amount_assigned' => $amount]);
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado
                 $project->suppliers()->syncWithoutDetaching([$supplierId]);
+                 // Actualizar el monto asignado en la tabla intermedia
+                $project->suppliers()->updateExistingPivot($supplierId, ['amount_assigned' => $amount]);
                 $message = 'Proveedores asignados exitosamente.';
             }
         }
