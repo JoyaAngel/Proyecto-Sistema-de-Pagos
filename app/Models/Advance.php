@@ -11,6 +11,11 @@ class Advance extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'transaction_id',
+        'project_id',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

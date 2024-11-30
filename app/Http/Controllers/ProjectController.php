@@ -35,6 +35,8 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         // validate the request
+        $validated = $request->validated();
+        
         $project = new Project($request->validated());
         $project->tax =  $project->subtotal * 0.16;
         $project->total = $project->subtotal + $project->tax;
@@ -102,7 +104,7 @@ class ProjectController extends Controller
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado
-                $project->supplier()->syncWithoutDetaching([$supplierId]);
+                $project->suppliers()->syncWithoutDetaching([$supplierId]);
                 $message = 'Proveedores asignados exitosamente.';
             }
         }

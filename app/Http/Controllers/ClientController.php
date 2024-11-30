@@ -14,9 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $organizations = Client::with('organization')
-        ->get()
-        ->pluck('organization');
+        $organizations = Organization::whereHas('client')->paginate(10);
         return view('clients.index', compact('organizations'));
     }
 

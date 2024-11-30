@@ -13,9 +13,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $organizations = Supplier::with('organization')
-        ->get()
-        ->pluck('organization');
+        $organizations = Organization::whereHas('supplier')->paginate(10);
         return view('suppliers.index', compact('organizations'));
     }
 

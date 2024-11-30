@@ -1,8 +1,12 @@
-@extends('...layouts.app')
-
+@extends('layouts.app')
 @section('content')
-    <div class="container d-flex col-md-12 mb-4">
-        <a href="{{ route('client.create') }}" class="btn btn-primary">Add</a>
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4"><i class="fas fa-building"></i> Clients Overview</h1>
+        <a href="{{ route('client.create') }}" class="btn btn-outline-secondary btn-lg">
+            <i class="fas fa-plus-circle"></i> Add Client
+        </a>
     </div>
-    @include('...organizations.show')
+</div>
+@include('organizations.show')
 @endsection

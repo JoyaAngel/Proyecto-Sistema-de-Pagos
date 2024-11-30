@@ -17,15 +17,16 @@
   </div>
 @endif
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-      <h1 class="text-primary">Gestión de Proyectos</h1>
-      <a href="{{ route('project.create') }}" class="btn btn-success">
-        <i class="bi bi-plus-circle"></i> Nuevo Proyecto
-      </a>
-    </div>
   </div>
+
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4"><i class="fas fa-building"></i> Projects Overview</h1>
+        <a href="{{ route('project.create') }}" class="btn btn-outline-secondary btn-lg">
+            <i class="fas fa-plus-circle"></i> New Project
+        </a>
+    </div>
+
 
   <!-- Filtros -->
   <div class="row my-4">
@@ -52,7 +53,7 @@
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Lista de Proyectos</h5>
+          <h5 class="mb-0">List</h5>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -60,11 +61,11 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Cliente</th>
-                  <th>Estado</th>
-                  <th>Fecha Inicio</th>
-                  <th>Acciones</th>
+                  <th>Name</th>
+                  <th>Client</th>
+                  <th>Status</th>
+                  <th>Beginning</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,7 +107,7 @@
                     <td>{{ $project->client->organization->name ?? 'N/A' }}</td>
                     <td>
                       <span class="badge 
-                        {{ $project->id === 1 ? 'bg-success' : 'bg-secondary' }}">
+                        {{ $project->status === 'a' ? 'bg-success' : ($project->status === 'i' ? 'bg-warning' : 'bg-secondary') }}">
                         {{ $project->status === 'a' ? 'Activo' : ($project->status === 'i' ? 'Inactivo' : 'Terminado') }}
 
                       </span>
@@ -137,12 +138,13 @@
             </table>
           </div>
         </div>
-        <div class="card-footer text-muted">
-          {{ $projects->links() }} <!-- Paginación -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $projects->links('pagination::bootstrap-4') }}
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <script>

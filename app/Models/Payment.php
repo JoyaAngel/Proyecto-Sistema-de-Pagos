@@ -11,6 +11,11 @@ class Payment extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'transaction_id',
+        'project_supplier_id',
+    ];
+
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
