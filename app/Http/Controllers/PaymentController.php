@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProjectSupplier;
 use App\Models\Transaction;
 use App\Models\Payment;
+use App\Models\Supplier;
 
 class PaymentController extends Controller
 {
@@ -49,10 +50,19 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        dd($id);
-    }
+    public function show($supplierId)
+{
+    $supplier = Supplier::findOrFail($supplierId);
+
+    // Obtener los project_supplier_id relacionados con el proveedor
+    $projectSupplierIds = ProjectSupplier::where('supplier_id', $supplierId)->pluck('id');
+
+    // Obtener los pagos relacionados con esos project_supplier_id
+    $payments = Payment::whereIn('project_supplier_id', $projectSupplierIds)->get();
+
+    return view('payments.index', compact('supplier', 'payments'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
