@@ -25,7 +25,7 @@ class OrganizationController extends Controller
     {
         $type = $request->query('type');
         $organization = new Organization();
-        return view('dashboard.organizations.create', compact('type', 'organization'));   
+        return view('dashboard.organizations.create', compact('type', 'organization'));
     }
 
 
@@ -54,7 +54,8 @@ class OrganizationController extends Controller
      */
     public function edit(Organization $organization)
     {
-        return view('organizations.edit', compact('organization'));
+        $type = url()->previous() === 'supplier' ? 'supplier' : 'client';
+        return view('organizations.edit', compact('organization', 'type'));
     }
 
     /**
@@ -66,7 +67,7 @@ class OrganizationController extends Controller
 
         $organization->update($data);
 
-        return redirect()->route('organization.index')->with('status', 'Organization updated successfully');
+        return redirect()->route($request->input('previous_route') === 'client' ? 'supplier.index' : 'client.index');
     }
 
     /**
