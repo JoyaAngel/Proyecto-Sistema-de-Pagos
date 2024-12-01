@@ -23,5 +23,10 @@ class ProjectSupplier extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
     
 }

@@ -28,7 +28,7 @@
                             Transactions
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="#">Payments</a>
+                            <a class="dropdown-item" href="{{url('payments')}}">Payments</a>
                             <a class="dropdown-item" href="#">Advances</a>
                         </div>
                     </li>
