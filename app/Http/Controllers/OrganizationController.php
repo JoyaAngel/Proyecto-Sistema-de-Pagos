@@ -67,8 +67,15 @@ class OrganizationController extends Controller
 
         $organization->update($data);
 
-        return redirect()->route($request->input('previous_route') === 'client' ? 'supplier.index' : 'client.index');
+        if(str_contains(url()->previous(), 'client')) {
+            return redirect()->route('client.index');
+        } elseif(str_contains(url()->previous(), 'supplier')) {
+            return redirect()->route('supplier.index');
+        } else {
+            dd("Error");
+        }   
     }
+
 
     /**
      * Remove the specified resource from storage.
