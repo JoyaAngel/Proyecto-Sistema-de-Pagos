@@ -16,7 +16,7 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        $payments = Payment::with('projectSupplier.supplier', 'transaction')->get();
+        $payments = Payment::with('projectSupplier.supplier', 'transaction')->paginate(10);
 
         //dd($payments);
 

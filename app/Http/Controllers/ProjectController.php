@@ -96,8 +96,9 @@ class ProjectController extends Controller
         //
     }
 
-    public function assignSupplier(Project $project, Request $request)
+    public function assignSupplier(Request $request)
     {
+        $project = Project::find($request->project_id);
 
         $amount = $request->input('amount');
 

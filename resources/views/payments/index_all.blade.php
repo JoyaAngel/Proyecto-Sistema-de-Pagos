@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container my-4">
     <h1 class="display-4"><i class="fas fa-building"></i> Payments Overview</h1>
@@ -38,6 +37,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $payments->links('pagination::bootstrap-4') }}
+        </div>
     @endif
 </div>
 @endsection

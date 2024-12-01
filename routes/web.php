@@ -30,7 +30,7 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::resource('payment', PaymentController::class);
     Route::resource('advance', AdvanceController::class);
 
-    Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
+    Route::post('/project/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
     Route::get('/payments/{supplier}', [PaymentController::class, 'show'])->name('payments.show');
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
@@ -39,6 +39,8 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::get('/home', function () { return view('home'); });
 
     Route::get('/', function () { return view('index');})->name('index');
+
+    Route::get('/suppliers/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
 });
 
 Route::get('/change-password', [UserController::class, 'changePassword'])->name('change-password')->middleware('auth');
