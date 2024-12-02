@@ -28,5 +28,9 @@ class ProjectSupplier extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
     
 }

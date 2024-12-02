@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <form action="{{ route('organization.destroy', $organization->id) }}" method="POST"">           
+          <form action="{{ route('organization.destroy', $organization->id) }}" method="POST">           
                 @csrf
                 <button class="btn btn-danger">Eliminar</button>
                 @method('DELETE')
