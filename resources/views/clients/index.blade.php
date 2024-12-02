@@ -51,11 +51,11 @@
           @if (Auth::user()->type === 'a')
           <td>
             <div class="d-flex align-items-center gap-2">
-            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      
+            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Editar</a>                      
             @include('organizations.partials.eliminacion')
             <form style="display: inline;">
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
-                Delete
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
+                Eliminar
               </button>
             </form>
             </div>
