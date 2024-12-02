@@ -50,8 +50,8 @@
                             <div class="mb-3 col-md-12">
                                 <label for="person" class="form-label">Persona</label>
                                 <select class="form-select" id="person" name="person">
-                                    <option value="f" {{ old('status', $organization->person) == 'f' ? 'selected' : '' }}>Física</option>
-                                    <option value="m" {{ old('status', $organization->person) == 'm' ? 'selected' : '' }}>Moral</option>
+                                    <option value="n" {{ old('status', $organization->person) == 'n' ? 'selected' : '' }}>Física</option>
+                                    <option value="l" {{ old('status', $organization->person) == 'l' ? 'selected' : '' }}>Moral</option>
                                 </select>
                             </div>
                         </div>
