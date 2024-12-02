@@ -68,9 +68,9 @@ class OrganizationController extends Controller
         $organization->update($data);
 
         if(str_contains(url()->previous(), 'client')) {
-            return redirect()->route('client.index');
+            return redirect()->route('client.index')->with('status', 'Client updated successfully');
         } elseif(str_contains(url()->previous(), 'supplier')) {
-            return redirect()->route('supplier.index');
+            return redirect()->route('supplier.index')->with('status', 'Supplier updated successfully');
         } else {
             dd("Error");
         }   
