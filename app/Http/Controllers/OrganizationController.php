@@ -68,14 +68,17 @@ class OrganizationController extends Controller
 
         try {
             $organization->update($validatedData);
-
-        if(str_contains(url()->previous(), 'client')) {
-            return redirect()->route('client.index');
-        } elseif(str_contains(url()->previous(), 'supplier')) {
-            return redirect()->route('supplier.index');
-        } else {
-            dd("Error");
-        }   
+          
+            if (str_contains(url()->previous(), 'client')) {
+                return redirect()->route('client.index')->with('status', 'Client updated successfully');
+            } elseif (str_contains(url()->previous(), 'supplier')) {
+                return redirect()->route('supplier.index')->with('status', 'Supplier updated successfully');
+            } else {
+                return back()->withErrors(['error' => 'Unknown previous URL']);
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update organization: ' . $e->getMessage()]);
+        }
     }
 
 
