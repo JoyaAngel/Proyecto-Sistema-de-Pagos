@@ -99,33 +99,34 @@ class ProjectController extends Controller
     {
         $project = Project::find($request->project_id);
 
-        $amount = $request->input('amount');
+        $amount = $request->input('service_cost');
 
         if($project->status != 'a'){
             return back()->with('error', 'The project is not active');
         }
 
+        $errorMessage = null;
+        $successMessage = null;
+
         foreach ($request->supplier_ids as $supplierId) {
             
             if ($project->suppliers->contains($supplierId)) {
-
                 $project->suppliers()->updateExistingPivot($supplierId, ['service_cost' => $amount]);
-                $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
+                $errorMessage = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado
-                $project->suppliers()->syncWithoutDetaching([$supplierId]);
-                 // Actualizar el monto asignado en la tabla intermedia
+                $project->suppliers()->syncWithoutDetaching([$supplierId => ['service_cost' => $amount]]);
+                // Actualizar el monto asignado en la tabla intermedia
                 $project->suppliers()->updateExistingPivot($supplierId, ['service_cost' => $amount]);
-                $message = 'Proveedores asignados exitosamente.';
+                $successMessage = 'Proveedores asignados exitosamente.';
             }
         }
 
-        // Si no hubo mensaje, es porque no se asignó nada
-        if (empty($message)) {
-            $message = 'No se asignaron proveedores nuevos.';
+        if ($errorMessage) {
+            return redirect()->route('project.index')->with('error', $errorMessage);
         }
 
-        return redirect()->route('project.index')->with('status', $message);
+        return redirect()->route('project.index')->with('status', $successMessage ?? 'No se asignaron proveedores nuevos.');
     }
 
 }

@@ -97,10 +97,10 @@
                             </div>
                            <!-- Campo para el monto a asignar -->
                             <div class="form-group mt-3">
-                              <label for="amount" class="form-label">Cantidad a Pagar</label>
+                              <label for="service_cost" class="form-label">Cantidad a Pagar</label>
                               <div class="input-group">
                                 <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="amount" name="amount" required min="0" step="0.01">
+                                <input type="number" class="form-control" id="service_cost" name="service_cost" required min="0" step="0.01">
                               </div>
                               <small class="text-muted">Ingresa la cantidad total a pagar que se asignará a los proveedores seleccionados.</small>
                             </div>
