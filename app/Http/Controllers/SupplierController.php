@@ -27,14 +27,26 @@ class SupplierController extends Controller
         return view('suppliers.create', compact('organization'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreOrganizationRequest $request)
     {
+
         $validatedData = $request->validated();
-        $organization = Organization::create($validatedData);
-        
+
+        $organization = Organization::create(
+            [
+            'name' => $validatedData['name'],
+            'person' => $validatedData['person'],
+            'rfc' => $validatedData['rfc'],
+            'address' => $validatedData['address'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone']
+            ]
+        );
+
         $supplier = new Supplier();
         $organization->supplier()->save($supplier);
         return redirect()->route('supplier.index')->with('status', 'Supplier created successfully');

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrganizationRequest;
 use App\Models\Client;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Validator;
 
 class OrganizationController extends Controller
 {
@@ -62,18 +63,22 @@ class OrganizationController extends Controller
      * Update the specified resource in storage.
      */
     public function update(StoreOrganizationRequest $request, Organization $organization)
-    {
-        $data = $request->validated();
+    {   
+        $validatedData = $request->validated();
 
-        $organization->update($data);
+        try {
+            $organization->update($validatedData);
 
-        if(str_contains(url()->previous(), 'client')) {
-            return redirect()->route('client.index')->with('status', 'Client updated successfully');
-        } elseif(str_contains(url()->previous(), 'supplier')) {
-            return redirect()->route('supplier.index')->with('status', 'Supplier updated successfully');
-        } else {
-            dd("Error");
-        }   
+            if (str_contains(url()->previous(), 'client')) {
+                return redirect()->route('client.index')->with('status', 'Organization updated successfully');
+            } elseif (str_contains(url()->previous(), 'supplier')) {
+                return redirect()->route('supplier.index')->with('status', 'Organization updated successfully');
+            } else {
+                return back()->withErrors(['error' => 'Unknown previous URL']);
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update organization: ' . $e->getMessage()]);
+        }
     }
 
 

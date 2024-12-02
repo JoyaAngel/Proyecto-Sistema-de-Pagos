@@ -23,9 +23,9 @@
                             <a href="{{ route('organization.edit', $organization->id) }}" class="btn btn-primary">Edit</a>
                             @include('organizations.partials.eliminacion')
                             <form style="display: inline;">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
                                     Delete
-                                </button>
+                                </button>
                             </form>
                         </td>
                     </tr>
