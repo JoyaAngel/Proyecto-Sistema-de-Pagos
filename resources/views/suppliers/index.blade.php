@@ -49,6 +49,7 @@
 
                     @if (Auth::user()->type === 'a')
                     <td>
+                      <div class="d-flex align-items-center gap-2">
                       <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'supplier']) }}" class="btn btn-primary">Editar</a>
                       @include('organizations.partials.eliminacion')
                       <form style="display: inline;">
@@ -56,6 +57,7 @@
                           Eliminar
                         </button>
                       </form>
+                      </div>
                     </td>
                     @endif
                   </tr>
