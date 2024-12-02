@@ -38,21 +38,24 @@
               </tr>
             </thead>
             <tbody id="clientTableBody">
-              @foreach ($clients as $client)
+                @foreach ($clients as $client)
                 <tr>
                   <td>{{ $client->id }}</td>
                   <td>{{ $client->organization->name }}</td>
                   <td>
-                    <button type="button" class="btn btn-primary select-client"
-                            data-id="{{ $client->id }}"
-                            data-name="{{ $client->organization->name }}">
-                      Seleccionar
-                    </button>
+                  <button type="button" class="btn btn-primary select-client"
+                      data-id="{{ $client->id }}"
+                      data-name="{{ $client->organization->name }}" data-bs-dismiss="modal">
+                    Seleccionar
+                  </button>
                   </td>
                 </tr>
-              @endforeach
+                @endforeach
             </tbody>
           </table>
+        </div>
+        <div class="d-flex justify-content-center">
+          {{ $clients->onEachSide(1)->links('pagination::bootstrap-4') }}
         </div>
       </div>
       <div class="modal-footer">
@@ -64,27 +67,56 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const selectButtons = document.querySelectorAll('.select-client');
-        const clientIdInput = document.getElementById('client_id');
-        const clientNameInput = document.getElementById('client_name');
+        function attachSelectClientEvents() {
+            const selectButtons = document.querySelectorAll('.select-client');
+            const clientIdInput = document.getElementById('client_id');
+            const clientNameInput = document.getElementById('client_name');
 
-        selectButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const clientId = this.getAttribute('data-id');
-                const clientName = this.getAttribute('data-name');
+            selectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const clientId = this.getAttribute('data-id');
+                    const clientName = this.getAttribute('data-name');
 
-                // Actualiza el campo hidden con el ID del cliente
-                clientIdInput.value = clientId;
-                // Actualiza el campo de texto visible con el nombre del cliente
-                clientNameInput.value = clientName;
+                    // Actualiza el campo hidden con el ID del cliente
+                    clientIdInput.value = clientId;
+                    // Actualiza el campo de texto visible con el nombre del cliente
+                    clientNameInput.value = clientName;
 
-                // Cierra el modal
-                const modalElement = document.getElementById('clientModal');
-                const modal = bootstrap.Modal.getInstance(modalElement);
-                modal.hide();
+                    // Cierra el modal
+                    const modalElement = document.getElementById('clientModal');
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    modal.hide();
+                });
             });
+        }
+
+        function attachPaginationEvents() {
+            const paginationLinks = document.querySelectorAll('.pagination a');
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const url = this.getAttribute('href');
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(html => {
+                            const newModalContent = new DOMParser().parseFromString(html, 'text/html').querySelector('.modal-content');
+                            document.querySelector('#clientModal .modal-content').innerHTML = newModalContent.innerHTML;
+                            attachSelectClientEvents(); // Re-attach events after content update
+                            attachPaginationEvents(); // Re-attach pagination events after content update
+                        });
+                });
+            });
+        }
+
+        attachSelectClientEvents();
+        attachPaginationEvents();
+
+        // Re-attach events when the modal is shown
+        const modal = document.getElementById('clientModal');
+        modal.addEventListener('shown.bs.modal', function () {
+            attachSelectClientEvents();
+            attachPaginationEvents();
         });
     });
 </script>
-          
 @endsection

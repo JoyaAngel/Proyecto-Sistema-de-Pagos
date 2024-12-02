@@ -24,7 +24,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $clients = Client::paginate(10);
+        // Get clients whose ID is not assigned to any project
+        $clients = Client::whereDoesntHave('projects')->paginate(10);
         $project = new Project();
         $client_name = '';
         return view('projects.create', compact('clients', 'project', 'client_name'));
