@@ -11,16 +11,18 @@
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Monto</th>
+                    <th>Proyecto</th>
                     <th>Método de Pago</th>
+                    <th>Monto</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($payments as $payment)
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
-                        <td>${{ number_format($payment->transaction->amount, 2) }}</td>
+                        <td>{{ $payment->projectSupplier?->project?->name}}</td>
                         <td>{{ ucfirst($payment->transaction->payment_method) }}</td>
+                        <td>${{ number_format($payment->transaction->amount, 2) }}</td>
                     </tr>
                 @endforeach
             </tbody>
