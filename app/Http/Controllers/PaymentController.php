@@ -16,6 +16,13 @@ class PaymentController extends Controller
     public function index()
     {
         //
+        $payments = Payment::with('projectSupplier.supplier', 'transaction')->paginate(10);
+
+        //dd($payments);
+
+        // Pasar los pagos a la vista
+        return view('payments.index_all', compact('payments'));
+        //Mira joyita, es esto uwu
     }
 
     /**
@@ -67,7 +74,7 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -75,7 +82,7 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -83,8 +90,12 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Payment $payment)
     {
         //
+        $payment->delete();
+
+        // Redirigir a la lista de pagos con un mensaje de éxito
+        return back()->with('status', 'Payment deleted successfully');
     }
 }
