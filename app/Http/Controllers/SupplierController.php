@@ -49,7 +49,7 @@ class SupplierController extends Controller
 
         $supplier = new Supplier();
         $organization->supplier()->save($supplier);
-        return redirect()->route('supplier.index');
+        return redirect()->route('supplier.index')->with('status', 'Supplier created successfully');
     }
 
     /**

@@ -28,7 +28,7 @@
                             Transactions
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="{{ route('payment.index')}}">Payments</a>
+                            <a class="dropdown-item" href="{{url('payments')}}">Payments</a>
                             <a class="dropdown-item" href="#">Advances</a>
                         </div>
                     </li>
@@ -49,11 +49,6 @@
                     @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else

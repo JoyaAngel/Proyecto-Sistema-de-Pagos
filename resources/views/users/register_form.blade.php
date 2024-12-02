@@ -13,11 +13,16 @@
                         @csrf
                         <!-- Nombre -->
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nombre Completo</label>
+                            <label for="name" class="form-label">Nombre</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Ingresa tu nombre completo" value="{{ old('name') }}" required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Apellido</label>
+                            <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" placeholder="Ingresa tu apellido" value="{{ old('last_name') }}" required>
+
                         </div>
 
                         <!-- Correo Electrónico -->

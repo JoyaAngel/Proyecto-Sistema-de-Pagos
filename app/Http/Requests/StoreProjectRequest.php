@@ -21,6 +21,17 @@ class StoreProjectRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->method() == 'PUT') {
+            return [
+                'name' => 'required|string|max:100',
+                'start_date' => 'required|date',
+                'end_date' => 'date|after:start_date',
+                'subtotal' => 'required|numeric',
+                'concept' => 'nullable',
+                'status' => 'nullable',
+                'comments' => 'nullable|string|max:200',
+            ];
+        }
         return [
             'name' => 'required|string|max:100',
             'start_date' => 'required|date',
