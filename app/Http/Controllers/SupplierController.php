@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrganizationRequest;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
 use App\Models\Organization;
@@ -29,22 +30,14 @@ class SupplierController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreOrganizationRequest $request)
     {
-        $organization = Organization::create(
-            [
-                'name' => $request->name,
-                'person' => $request->person,
-                'rfc' => $request->rfc,
-                'address' => $request->address,
-                'email' => $request->email,
-                'phone' => $request->phone
-            ]
-        );
+        $validatedData = $request->validated();
+        $organization = Organization::create($validatedData);
         
         $supplier = new Supplier();
         $organization->supplier()->save($supplier);
-        return redirect()->route('supplier.index');
+        return redirect()->route('supplier.index')->with('status', 'Supplier created successfully');
     }
 
     /**

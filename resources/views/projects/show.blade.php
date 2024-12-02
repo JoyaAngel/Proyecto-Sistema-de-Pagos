@@ -81,9 +81,9 @@
                 </dl>
                     <div class="d-flex justify-content-start mt-3">
                         
-                        <button class="btn btn-outline-primary btn-md">
+                        <a class="btn btn-outline-primary btn-md" href="{{ route('project.advances', [$project->id])}}"">
                             Ver Anticipos Recibidos
-                        </button>
+                        </a>
                         @if(Auth::user()->type === 'a')
                         <button class="btn btn-outline-primary btn-md ms-2" data-bs-toggle="modal" data-bs-target="#advanceModal">
                             Registrar Anticipo del Cliente
@@ -123,7 +123,7 @@
                                                 Registrar Pago
                                             </button>
                                             @endif
-                                            <a href="{{ route('payments.show', ['supplier' => $supplier->id]) }}" class="btn btn-outline-info btn-sm ms-2">
+                                            <a href="{{ route('project.supplier.payments', [$project->id, $supplier->id]) }}" class="btn btn-outline-info btn-sm ms-2">
                                                 Ver Pagos Realizados
                                             </a>
                                             

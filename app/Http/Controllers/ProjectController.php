@@ -26,7 +26,8 @@ class ProjectController extends Controller
     {
         $clients = Client::paginate(10);
         $project = new Project();
-        return view('projects.create', compact('clients', 'project'));
+        $client_name = '';
+        return view('projects.create', compact('clients', 'project', 'client_name'));
     }
 
     /**
@@ -56,11 +57,8 @@ class ProjectController extends Controller
             $query->where('project_id', $id); // Filtrar por el proyecto
         })->sum('amount');
 
-
-
-
         $diff = $project->total - $totalAdvance;
-
+        
         return view('projects.show', compact('project', 'totalAdvance', 'diff'));
     }
 
@@ -70,8 +68,9 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $project = Project::find($id);
+        $client_name = $project->client->organization->name;
         $clients = Client::paginate(10);
-        return view('projects.edit', compact('project', 'clients'));
+        return view('projects.edit', compact('project', 'clients', 'client_name'));
     }
 
     /**
@@ -102,17 +101,21 @@ class ProjectController extends Controller
 
         $amount = $request->input('amount');
 
+        if($project->status != 'a'){
+            return back()->with('error', 'The project is not active');
+        }
+
         foreach ($request->supplier_ids as $supplierId) {
             
             if ($project->suppliers->contains($supplierId)) {
 
-                $project->suppliers()->updateExistingPivot($supplierId, ['amount_assigned' => $amount]);
+                $project->suppliers()->updateExistingPivot($supplierId, ['service_cost' => $amount]);
                 $message = 'Uno o más proveedores ya estaban asignados al proyecto.';
             } else {
                 // Asigna el proveedor si no está ya asignado
                 $project->suppliers()->syncWithoutDetaching([$supplierId]);
                  // Actualizar el monto asignado en la tabla intermedia
-                $project->suppliers()->updateExistingPivot($supplierId, ['amount_assigned' => $amount]);
+                $project->suppliers()->updateExistingPivot($supplierId, ['service_cost' => $amount]);
                 $message = 'Proveedores asignados exitosamente.';
             }
         }
@@ -122,10 +125,7 @@ class ProjectController extends Controller
             $message = 'No se asignaron proveedores nuevos.';
         }
 
-        // Envía el mensaje de retroalimentación al usuario
-        session()->flash('success', $message);
-
-
-        return redirect()->route('project.index');
+        return redirect()->route('project.index')->with('status', $message);
     }
+
 }
