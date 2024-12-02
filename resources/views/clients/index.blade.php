@@ -6,15 +6,17 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-between align-items-center">
       <h1 class="text-primary">Gestión de Clientes</h1>
+      @if (Auth::user()->type === 'a')
       <a href="{{ route('client.create', ['type' => 'client']) }}" class="btn btn-success">
         <i class="bi bi-plus-circle"></i> Nuevo Cliente
       </a>
+      @endif
       </div>
     </div>
 
   <!-- Tabla de Proyectos -->
 
-  <div class="row">
+  <div class="row flex-grow-1">
     <div class="col-12">
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
@@ -31,7 +33,9 @@
           <th>Email</th>
           <th>Teléfono</th>
           <th>Dirección</th>
-          <th scope="col">Actions</th>
+          @if (Auth::user()->type === 'a')
+            <th scope="col">Actions</th>
+          @endif
           </tr>
         </thead>
         <tbody>
@@ -43,6 +47,8 @@
           <td>{{ $organization->email }}</td>
           <td>{{ $organization->phone }}</td>
           <td>{{ $organization->address }}</td>
+
+          @if (Auth::user()->type === 'a')
           <td>
             <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      
             @include('organizations.partials.eliminacion')
@@ -52,6 +58,7 @@
               </button>
             </form>
           </td>
+          @endif
           </tr>
 
         @empty

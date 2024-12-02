@@ -6,9 +6,11 @@
     <div class="row mt-5">
       <div class="col-12 d-flex justify-content-between align-items-center">
         <h1 class="text-primary">Gestión de Proveedores</h1>
+        @if(Auth::user()->type === 'a')
         <a href="{{ route('supplier.create', ['type' => 'supplier']) }}" class="btn btn-success">
           <i class="bi bi-plus-circle"></i> Nuevo Proveedor
         </a>
+        @endif
       </div>
     </div>
 
@@ -30,7 +32,9 @@
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Dirección</th>
-                    <th scope="col">Acciones</th>
+                    @if(Auth::user()->type === 'a')
+                      <th scope="col">Acciones</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -42,6 +46,8 @@
                     <td>{{ $organization->email }}</td>
                     <td>{{ $organization->phone }}</td>
                     <td>{{ $organization->address }}</td>
+
+                    @if (Auth::user()->type === 'a')
                     <td>
                       <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'supplier']) }}" class="btn btn-primary">Editar</a>
                       @include('organizations.partials.eliminacion')
@@ -51,6 +57,7 @@
                         </button>
                       </form>
                     </td>
+                    @endif
                   </tr>
                   @empty
                   <tr>
