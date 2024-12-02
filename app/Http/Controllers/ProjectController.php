@@ -16,10 +16,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
 {
-    // Obtener el estado del filtro
     $status = $request->input('status');
-
-    // Consulta base
     $query = Project::query();
 
     // Aplicar filtros según el estado
@@ -31,10 +28,8 @@ class ProjectController extends Controller
         $query->where('status', 'f');
     }
 
-    // Ordenar por fecha de término y paginar
     $projects = $query->orderBy('end_date', 'asc')->paginate(10)->appends(['status' => $status]);
 
-    // Pasar datos a la vista
     return view('projects.index', [
         'projects' => $projects,
         'suppliers' => Supplier::all(),
