@@ -123,9 +123,10 @@
                                                 Registrar Pago
                                             </button>
                                             @endif
-                                            <a href="#" class="btn btn-outline-info btn-sm ms-2">
+                                            <a href="{{ route('payments.show', ['supplier' => $supplier->id]) }}" class="btn btn-outline-info btn-sm ms-2">
                                                 Ver Pagos Realizados
                                             </a>
+                                            
                                         </div>
                                 </div>
                             @endforeach

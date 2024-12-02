@@ -30,7 +30,8 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::resource('payment', PaymentController::class);
     Route::resource('advance', AdvanceController::class);
 
-    Route::post('/project/{project}/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
+    Route::post('/project/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
+    Route::get('/payments/{supplier}', [PaymentController::class, 'show'])->name('payments.show');
 
     Route::post('/user/{id}/password-reset', [UserController::class, 'passwordReset'])->name('user.passwordReset');
     Route::get('/home', function () {      //Cambiamos el nombre para q no choque con la de arriba
