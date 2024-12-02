@@ -18,17 +18,14 @@
 @endif
 
   </div>
-  <div class="container my-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="display-4"><i class="fas fa-building"></i> Projects Overview</h1>
-      @if (Auth::user()->type === 'a')
 
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4"><i class="fas fa-building"></i> Projects Overview</h1>
         <a href="{{ route('project.create') }}" class="btn btn-outline-secondary btn-lg">
             <i class="fas fa-plus-circle"></i> New Project
         </a>
-      @endif
-  </div>
-    
+    </div>
 
 
   <!-- Filtros -->
