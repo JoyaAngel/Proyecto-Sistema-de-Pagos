@@ -1,9 +1,9 @@
     <!-- Modal de confirmación -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal-{{$user->id}}" tabindex="-1" aria-labelledby="deleteModalLabel-{{$user->id}}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary-subtle text-white>
-                <h5 class="modal-title" id="deleteModalLabel">¿Estás seguro que desea continuar?</h5>
+                <h5 class="modal-title" id="deleteModalLabel-{{$user->id}}">¿Estás seguro que desea continuar?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
