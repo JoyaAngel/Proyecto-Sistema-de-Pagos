@@ -7,11 +7,12 @@
     <caption>Lista de usuarios</caption>
       <thead class="bg-primary text-white table-light">
           <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Tipo</th>
-              <th>Acciones</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
           </tr>
       </thead>
       <tbody>
@@ -19,6 +20,7 @@
           <tr>
               <td>{{ $user->id }}</td>
               <td>{{ $user->name }}</td>
+              <td>{{ $user->last_name}}</td>
               <td>{{ $user->email }}</td>
               <td>{{ $user->type === 'a' ? 'Administrador' : 'Usuario' }}</td>
               <td>
@@ -53,11 +55,20 @@
                           @csrf
                           @method('PUT')
                           <div class="modal-body">
+
+                            <!-- ID -->
+                            <input type="hidden" name="id" value="{{ $user->id }}">
                               <!-- Nombre -->
                               <div class="mb-3">
                                   <label for="name-{{ $user->id }}" class="form-label">Nombre</label>
                                   <input type="text" class="form-control" id="name-{{ $user->id }}" name="name" value="{{ $user->name }}" required>
                               </div>
+
+                            <!-- Apellido -->
+
+                              <div class="mb-3">
+                                <label for="last_name-{{ $user->id }}" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="last_name-{{ $user->id }}" name="last_name" value="{{ $user->last_name }}" required>
 
                               <!-- Email -->
                               <div class="mb-3">

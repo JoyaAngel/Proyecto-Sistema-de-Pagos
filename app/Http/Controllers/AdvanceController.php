@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Advance;
+use App\Models\Project;
 
 class AdvanceController extends Controller
 {
@@ -29,6 +30,20 @@ class AdvanceController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $project = Project::find(request('project_id'));
+        $id = $project->id;
+        $totalAdvance = Transaction::whereHas('advance', function ($query) use ($id) {
+            $query->where('project_id', $id); // Filtrar por el proyecto
+        })->sum('amount');
+
+        if($project->status != 'a'){
+            return back()->with('error', 'The project is not active');
+        }
+        if ($totalAdvance + $request->amount > $project->total) {
+            return back()->with('error', 'The total advance exceeds the project total');
+        }
+
         $transaction = Transaction::create($request->all());
 
         $advance = new Advance();
@@ -69,5 +84,17 @@ class AdvanceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showAdvances(String $project)
+    {
+        $project = Project::find($project);
+        $advances = Transaction::whereHas('advance', function ($query) use ($project) {
+            $query->where('project_id', $project->id);
+        })->get();
+
+        dd($advances);
+
+        return view('advances.show', compact('project', 'advances'));
     }
 }

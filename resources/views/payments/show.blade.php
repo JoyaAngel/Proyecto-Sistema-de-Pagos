@@ -7,6 +7,9 @@
     @if($payments->isEmpty())
         <p class="text-muted">No se han registrado pagos para este proveedor.</p>
     @else
+
+        <p> Costo del servicio: {{ $projectSupplier->service_cost}} </p>
+        <p> Por pagar: {{ $diff}}</p>
         <table class="table table-striped">
             <thead>
                 <tr>

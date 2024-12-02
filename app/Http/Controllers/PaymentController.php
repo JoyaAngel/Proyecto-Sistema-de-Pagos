@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProjectSupplier;
 use App\Models\Transaction;
 use App\Models\Payment;
+use App\Models\Project;
 use App\Models\Supplier;
 
 class PaymentController extends Controller
@@ -16,8 +17,13 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        $payments = Payment::all();
-        return view('payments.index', compact('payments'));
+        $payments = Payment::with('projectSupplier.supplier', 'transaction')->paginate(10);
+
+        //dd($payments);
+
+        // Pasar los pagos a la vista
+        return view('payments.index_all', compact('payments'));
+        //Mira joyita, es esto uwu
     }
 
     /**
@@ -35,10 +41,22 @@ class PaymentController extends Controller
     {
         $supplier_id = $request->supplier_id;
         $project_id = $request->project_id;
+
+
         $project_supplier = ProjectSupplier::where('project_id', $project_id)    
                 ->where('supplier_id', $supplier_id)
                 ->first();
 
+        $totalPayments = Transaction::whereHas('payment', function ($query) use ($project_supplier) {
+            $query->where('project_supplier_id', $project_supplier->id);
+        })->sum('amount');
+    
+        if(Project::find($project_id)->status != 'a'){
+            return back()->with('error', 'The project is not active');
+        }
+        if ($totalPayments + $request->amount > $project_supplier->service_cost) {
+            return back()->with('error', 'The payment exceeds the service cost');
+        }
         $transaction = Transaction::create($request->all());
 
         $payment = new Payment();
@@ -69,7 +87,7 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -77,7 +95,7 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -85,8 +103,32 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Payment $payment)
     {
         //
+        $payment->delete();
+
+        // Redirigir a la lista de pagos con un mensaje de éxito
+        return back()->with('status', 'Payment deleted successfully');
+    }
+
+
+    public function showPayments( String $project_id, String $supplier_id){
+
+        $project = Project::find($project_id);
+        $supplier = Supplier::find($supplier_id);
+        $projectSupplier = ProjectSupplier::where('project_id', $project_id)
+            ->where('supplier_id', $supplier_id)
+            ->first();
+
+        $payments = Payment::where('project_supplier_id', $projectSupplier->id)->paginate(10);
+
+        $paymets_amount = Transaction::whereHas('payment', function ($query) use ($projectSupplier) {
+            $query->where('project_supplier_id', $projectSupplier->id);
+        })->sum('amount'); 
+
+        $diff = $projectSupplier->service_cost - $paymets_amount;
+
+        return view('payments.show', compact('project', 'supplier', 'payments', 'diff', 'projectSupplier'));
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
   <!-- Título -->
-
+<div class="container-fluid d-flex flex-column min-vh-100">
   <div class="container mt-5">
     <div class="row">
       <div class="col-12 d-flex justify-content-between align-items-center">
@@ -50,10 +50,9 @@
 
           @if (Auth::user()->type === 'a')
           <td>
-            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      
-            @include('organizations.partials.eliminacion')
+            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      @include('organizations.partials.eliminacion')
             <form style="display: inline;">
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
                 Delete
               </button>
             </form>
@@ -76,4 +75,5 @@
     </div>
     </div>
   </div>
+</div>
 @endsection

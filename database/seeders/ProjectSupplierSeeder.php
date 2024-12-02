@@ -13,6 +13,6 @@ class ProjectSupplierSeeder extends Seeder
      */
     public function run(): void
     {
-        ProjectSupplier::factory()->count(50)->create();
+        ProjectSupplier::factory()->count(30)->create();
     }
 }
