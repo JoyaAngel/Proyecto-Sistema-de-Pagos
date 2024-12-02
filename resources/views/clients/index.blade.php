@@ -44,9 +44,10 @@
           <td>{{ $organization->phone }}</td>
           <td>{{ $organization->address }}</td>
           <td>
-            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      @include('organizations.partials.eliminacion')
+            <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'client']) }}" class="btn btn-primary">Edit</a>                      
+            @include('organizations.partials.eliminacion')
             <form style="display: inline;">
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
                 Delete
               </button>
             </form>
