@@ -22,6 +22,7 @@ class PaymentController extends Controller
 
         // Pasar los pagos a la vista
         return view('payments.index_all', compact('payments'));
+        //Mira joyita, es esto uwu
     }
 
     /**
