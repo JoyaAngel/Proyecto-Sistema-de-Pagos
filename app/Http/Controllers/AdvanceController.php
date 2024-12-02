@@ -14,6 +14,8 @@ class AdvanceController extends Controller
     public function index()
     {
         //
+        $advances = Advance::with(['project.client.organization', 'transaction'])->paginate(10);
+        return view('advances.index', compact('advances'));
     }
 
     /**
@@ -66,8 +68,12 @@ class AdvanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Advance $advance)
     {
         //
+        $advance->delete();
+
+        // Redirigir a la lista de pagos con un mensaje de éxito
+        return back()->with('status', 'Advance deleted successfully');
     }
 }

@@ -29,7 +29,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                             <a class="dropdown-item" href="{{url('payments')}}">Payments</a>
-                            <a class="dropdown-item" href="#">Advances</a>
+                            <a class="dropdown-item" href="{{route('advance.index')}}">Advances</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

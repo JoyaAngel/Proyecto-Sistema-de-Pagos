@@ -28,9 +28,6 @@
                         <td>
                             @include('payments.partials.eliminacion')
                             <form style="display: inline;">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion">
-                                    Delete
-                                </button>
                             </form>
                         </td>
                     </tr>

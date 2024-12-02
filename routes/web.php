@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdvanceController;
 use App\Http\Middleware\CheckPasswordChange;
 use App\Http\Middleware\UserAuthenticate;
+use App\Models\Advance;
 
 //Route::get('/user', function () {
 //    return view('user');
@@ -41,6 +42,7 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
 
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
+    Route::get('/advances', [AdvanceController::class, 'index'])->name('advances.index');
     });
 
     Route::get('/', function () { return view('index');})->name('index');

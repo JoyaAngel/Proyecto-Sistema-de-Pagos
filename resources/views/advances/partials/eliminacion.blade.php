@@ -1,5 +1,5 @@
-<!-- Modal de eliminación -->
-<div class="modal fade" id="eliminacion{{ $payment->id }}" tabindex="-1" aria-labelledby="eliminacion{{ $payment->id }}" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="eliminacion{{ $advance->id }}" tabindex="-1" aria-labelledby="eliminacion{{ $advance->id }}" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -11,17 +11,12 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <form action="{{ route('payment.destroy', $payment->id) }}" method="POST">
+              <form action="{{ route('advance.destroy', $advance->id) }}" method="POST">           
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                  <button class="btn btn-danger">Eliminar</button>
               </form>
           </div>
       </div>
   </div>
 </div>
-
-<!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion{{ $payment->id }}">
-  Eliminar
-</button>
