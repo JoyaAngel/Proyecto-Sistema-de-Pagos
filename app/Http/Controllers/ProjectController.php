@@ -26,9 +26,12 @@ class ProjectController extends Controller
         $query->where('status', 'i');
     } elseif ($status === 'finished') {
         $query->where('status', 'f');
+    }  elseif ($status === '') {
+        // Excluir proyectos 
+        $query->where('status', '!=', 'c');
     }
-
-    $projects = $query->orderBy('end_date', 'asc')->paginate(10)->appends(['status' => $status]);
+    $projects = $query->where('status', '!=', 'c')
+                      ->orderBy('end_date', 'asc')->paginate(10)->appends(['status' => $status]);
 
     return view('projects.index', [
         'projects' => $projects,
@@ -103,7 +106,7 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('project.index')->with('status', 'Project updated successfully');
+        return redirect()->route('project.index')->with('status', 'El proyecto ha sido actualizado exitosamente.');
     }
 
     /**
@@ -146,4 +149,19 @@ class ProjectController extends Controller
 
         return redirect()->route('project.index');
     }
+
+    public function cancel(Request $request, Project $project)
+{
+    // Validar si el estado no es ya 'cancelado'
+    if ($project->status === 'c') {
+        return redirect()->route('project.index')->with('warning', 'Este proyecto ya está cancelado.');
+    }
+
+    // Cambiar el estado del proyecto a 'c' (cancelado)
+    $project->update(['status' => 'c']);
+
+    return redirect()->route('project.index')->with('success', 'El proyecto ha sido cancelado exitosamente.');
+}
+
+
 }

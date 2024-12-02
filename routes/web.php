@@ -43,6 +43,9 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
     });
 
+   Route::patch('project/{project}/cancel', [ProjectController::class, 'cancel'])->name('project.cancel');
+
+
     Route::get('/', function () { return view('index');})->name('index');
 });
 

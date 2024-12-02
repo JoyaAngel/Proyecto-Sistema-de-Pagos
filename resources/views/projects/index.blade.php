@@ -42,8 +42,8 @@
                   Proyectos Terminados
               </button>
               <button type="submit" name="status" value="" class="btn btn-outline-primary {{ request('status') == '' ? 'active' : '' }}">
-                  Todos
-              </button>
+                Todos
+            </button>            
           </div>
       </form>
   </div>
@@ -135,6 +135,14 @@
                               data-bs-toggle="modal" data-bs-target="#assignSupplierModal">
                         <i class="bi bi-link"></i> Asignar Proveedor
                       </button>
+                      @include('projects.partials.cancelacion')
+                      <form style="display: inline;">
+                        <button type="button" class="btn btn-danger btn-sm cancel-project-btn" 
+                                data-id="{{ $project->id }}" data-bs-toggle="modal" 
+                                data-bs-target="#cancelProjectModal">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </button>
+                      </form>
                       @endif
                     </td>
                   </tr>

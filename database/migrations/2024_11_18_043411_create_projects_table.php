@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('tax');
             $table->float('total');
             $table->string('concept', 200)->nullable();
-            $table->enum('status', ['a', 'i', 'f'])->nullable();
+            $table->enum('status', ['a', 'i', 'f', 'c'])->nullable();
             $table->string('comments', 200)->nullable();
             $table->timestamps();
 
