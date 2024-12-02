@@ -14,10 +14,33 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('projects.index', ['projects' => Project::paginate(10), 'suppliers' => Supplier::all()]);
+    public function index(Request $request)
+{
+    // Obtener el estado del filtro
+    $status = $request->input('status');
+
+    // Consulta base
+    $query = Project::query();
+
+    // Aplicar filtros según el estado
+    if ($status === 'active') {
+        $query->where('status', 'a');
+    } elseif ($status === 'inactive') {
+        $query->where('status', 'i');
+    } elseif ($status === 'finished') {
+        $query->where('status', 'f');
     }
+
+    // Ordenar por fecha de término y paginar
+    $projects = $query->orderBy('end_date', 'asc')->paginate(10)->appends(['status' => $status]);
+
+    // Pasar datos a la vista
+    return view('projects.index', [
+        'projects' => $projects,
+        'suppliers' => Supplier::all(),
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
