@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest; 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -33,14 +34,11 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
-
-        $validated['type'] = $validated['type'] == 'admin' ? 'a' : 'u';
-
         $validated['password'] = Hash::make($validated['password']);
 
         User::create($validated);
 
-        return back()->with('status', 'User created successfully');
+        return redirect()->route('users.index')->with('status', 'User created successfully');
     }
 
     /**
@@ -62,13 +60,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUserRequest $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        dd($request->all());
-        $request->validated();
-        $user = User::find($request->id);
-        $user->update($request->only(['name','last_name', 'email', 'type']));
-
+        $user->update($request->validated());
         return back()->with('status', 'User updated successfully');
 
 
@@ -84,10 +78,8 @@ class UserController extends Controller
         return back()->with('status', 'User deleted successfully');
     }
 
-    public function passwordReset($id)
+    public function passwordReset(User $user)
     {
-        $user = User::find($id);
-
         $newPassword = Str::random(10);
 
         $user->update([

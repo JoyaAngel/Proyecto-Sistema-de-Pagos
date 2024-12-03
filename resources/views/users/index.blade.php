@@ -2,103 +2,103 @@
 
 @section('content')
 <div class="container mt-5">
-  <h1>Gestión de Usuarios</h1>
-  <table class="caption-top table align-middle table-bordered table-striped-columns table-dark table-hover table-borderless">
+    <h1>Gestión de Usuarios</h1>
+    <table class="caption-top table align-middle table-bordered table-striped-columns table-dark table-hover table-borderless">
     <caption>Lista de usuarios</caption>
-      <thead class="bg-primary text-white table-light">
-          <tr>
+        <thead class="bg-primary text-white table-light">
+            <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
             <th>Tipo</th>
             <th>Acciones</th>
-          </tr>
-      </thead>
-      <tbody>
-          @foreach($users as $user)
-          <tr>
-              <td>{{ $user->id }}</td>
-              <td>{{ $user->name }}</td>
-              <td>{{ $user->last_name}}</td>
-              <td>{{ $user->email }}</td>
-              <td>{{ $user->type === 'a' ? 'Administrador' : 'Usuario' }}</td>
-              <td>
-                  <div class="d-flex align-items-center gap-2">
-                      <!-- Botón para abrir el modal de edición -->
-                      <button class="btn btn-md btn-outline-primary w-40" data-bs-toggle="modal" data-bs-target="#editUserModal-{{ $user->id }}">
-                          Editar
-                      </button>
-                      
-                      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#PasswordResetModal">
-                          Restablecer Contraseña
-                      </button>
-                      @include('users.partials.pass_reset_modal')
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
+            <tr>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->last_name}}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->type === 'a' ? 'Administrador' : 'Usuario' }}</td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Botón para abrir el modal de edición -->
+                        <button class="btn btn-md btn-outline-primary w-40" data-bs-toggle="modal" data-bs-target="#editUserModal-{{ $user->id }}">
+                            Editar
+                        </button>
+                        
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#PasswordResetModal-{{$user->id}}">
+                            Restablecer Contraseña
+                        </button>
+                        @include('users.partials.pass_reset_modal')
 
-                      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{$user->id}}">
                         Eliminar
-                      </button>
-                      @include('users.partials.delete_user_modal')
-                  </div>
-              </td>
-          </tr>
+                        </button>
+                        @include('users.partials.delete_user_modal')
+                    </div>
+                </td>
+            </tr>
 
-          <!-- Modal para editar usuario -->
-          <div class="modal fade" id="editUserModal-{{ $user->id }}" tabindex="-1" aria-labelledby="editUserModalLabel-{{ $user->id }}" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header bg-warning text-white">
-                          <h5 class="modal-title" id="editUserModalLabel-{{ $user->id }}">Editar Usuario</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <form action="{{ route('user.update', $user->id) }}" method="POST">
-                          @csrf
-                          @method('PUT')
-                          <div class="modal-body">
+            <!-- Modal para editar usuario -->
+            <div class="modal fade" id="editUserModal-{{ $user->id }}" tabindex="-1" aria-labelledby="editUserModalLabel-{{ $user->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-warning text-white">
+                            <h5 class="modal-title" id="editUserModalLabel-{{ $user->id }}">Editar Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('user.update', $user) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
 
                             <!-- ID -->
                             <input type="hidden" name="id" value="{{ $user->id }}">
-                              <!-- Nombre -->
-                              <div class="mb-3">
-                                  <label for="name-{{ $user->id }}" class="form-label">Nombre</label>
-                                  <input type="text" class="form-control" id="name-{{ $user->id }}" name="name" value="{{ $user->name }}" required>
-                              </div>
+                                <!-- Nombre -->
+                                <div class="mb-3">
+                                    <label for="name-{{ $user->id }}" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="name-{{ $user->id }}" name="name" value="{{ $user->name }}" required>
+                                </div>
 
                             <!-- Apellido -->
 
-                              <div class="mb-3">
+                                <div class="mb-3">
                                 <label for="last_name-{{ $user->id }}" class="form-label">Apellido</label>
                                 <input type="text" class="form-control" id="last_name-{{ $user->id }}" name="last_name" value="{{ $user->last_name }}" required>
 
-                              <!-- Email -->
-                              <div class="mb-3">
-                                  <label for="email-{{ $user->id }}" class="form-label">Email</label>
-                                  <input type="email" class="form-control" id="email-{{ $user->id }}" name="email" value="{{ $user->email }}" required>
-                              </div>
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email-{{ $user->id }}" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email-{{ $user->id }}" name="email" value="{{ $user->email }}" required>
+                                </div>
 
-                              <!-- Tipo -->
-                              <div class="mb-3">
-                                  <label for="type-{{ $user->id }}" class="form-label">Tipo de Usuario</label>
-                                  <select class="form-control" id="type-{{ $user->id }}" name="type" required>
-                                      <option value="a" {{ $user->type === 'a' ? 'selected' : '' }}>Administrador</option>
-                                      <option value="u" {{ $user->type === 'u' ? 'selected' : '' }}>Usuario</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-          @endforeach
-      </tbody>
-  </table>
-  <div class="d-flex justify-content-center mt-4">
+                                <!-- Tipo -->
+                                <div class="mb-3">
+                                    <label for="type-{{ $user->id }}" class="form-label">Tipo de Usuario</label>
+                                    <select class="form-control" id="type-{{ $user->id }}" name="type" required>
+                                        <option value="a" {{ $user->type === 'a' ? 'selected' : '' }}>Administrador</option>
+                                        <option value="u" {{ $user->type === 'u' ? 'selected' : '' }}>Usuario</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-4">
     {{ $users->links('pagination::bootstrap-4') }}
-  </div>
+    </div>
 </div>
 @endsection
 
@@ -109,11 +109,11 @@
 <script>
     // Crear el modal dinámicamente
     var modalHTML = `
-        <div class="modal fade show" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal fade show" id="passwordReseted" tabindex="-1" aria-labelledby="passwordReseted" style="display: block;" aria-modal="true" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="passwordResetModalLabel">¡Contraseña Restablecida Exitosamente!</h5>
+                        <h5 class="modal-title" id="passwordReseted">¡Contraseña Restablecida Exitosamente!</h5>
                         <button type="button" class="btn-close" id="closeModalButton" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -148,7 +148,7 @@
 
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-    const myModal = new bootstrap.Modal(document.getElementById('passwordResetModal'));
+    const myModal = new bootstrap.Modal(document.getElementById('passwordReseted'));
 
     myModal.show();
 

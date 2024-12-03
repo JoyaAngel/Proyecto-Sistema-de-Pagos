@@ -39,8 +39,8 @@
                             <label for="type" class="form-label">Rol</label>
                             <select class="form-select @error('type') is-invalid @enderror" id="type" name="type" required>
                                 <option value="">Selecciona un rol</option>
-                                <option value="admin" {{ old('type') == 'a' ? 'selected' : '' }}>Admin</option>
-                                <option value="user" {{ old('type') == 'u' ? 'selected' : '' }}>User</option>
+                                <option value="a" {{ old('type') == 'a' ? 'selected' : '' }}>Admin</option>
+                                <option value="u" {{ old('type') == 'u' ? 'selected' : '' }}>User</option>
                             </select>
                             @error('role')
                                 <div class="invalid-feedback">{{ $message }}</div>

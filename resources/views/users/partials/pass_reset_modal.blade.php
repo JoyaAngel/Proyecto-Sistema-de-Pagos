@@ -1,9 +1,10 @@
 <!-- Modal de confirmación -->
-<div class="modal fade" id="PasswordResetModal" tabindex="-1" aria-labelledby="PasswordResetModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="PasswordResetModal-{{$user->id}}" tabindex="-1" aria-labelledby="PasswordResetModalLabel-{{$user->id}}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-warning text-white">
-                <h5 class="modal-title" id="PasswordResetModalLabel">¿Estás seguro que desea continuar?</h5>
+                <h5 class="modal-title" id="PasswordResetModalLabel-{{$user->id}}">¿Estás seguro que desea continuar?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-black">
