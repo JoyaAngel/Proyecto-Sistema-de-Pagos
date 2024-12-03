@@ -8,37 +8,37 @@
             <ul class="navbar-nav me-auto">
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    <a class="nav-link" href="{{ url('/') }}">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Organizations
+                        Organizaciones
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <a class="dropdown-item" href="{{ route('client.index')}}">Clients</a>
-                        <a class="dropdown-item" href="{{ route('supplier.index') }}">Suppliers</a>
+                        <a class="dropdown-item" href="{{ route('client.index')}}">Clientes</a>
+                        <a class="dropdown-item" href="{{ route('supplier.index') }}">Proveedores</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('project.index')}}">Projects</a>
+                    <a class="nav-link" href="{{route('project.index')}}">Proyectos</a>
                 </li>
                 @if (Auth::user()->type == 'a')
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Transactions
+                            Transacciones
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="{{url('payments')}}">Payments</a>
-                            <a class="dropdown-item" href="{{route('advance.index')}}">Advances</a>
+                            <a class="dropdown-item" href="{{url('payments')}}">Pagos</a>
+                            <a class="dropdown-item" href="{{route('advance.index')}}">Anticipos</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Administration
+                            Administración
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <a class="dropdown-item" href="{{ route('user.create')}}">Register Users</a>
-                            <a class="dropdown-item" href="{{ route('user.index') }}">Admin Users</a>
+                            <a class="dropdown-item" href="{{ route('user.create')}}">Registrar usuarios</a>
+                            <a class="dropdown-item" href="{{ route('user.index') }}">Usuarios</a>
                         </div>
                     </li>
                 @endif
@@ -65,7 +65,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                            <a class="dropdown-item" href="{{route('change-password')}}"> Change password</a>
+                            <a class="dropdown-item" href="{{route('change-password')}}"> Cambiar contraseña</a>
                         </div>
                     </li>
                 @endguest
