@@ -5,25 +5,27 @@
 <div class="container mt-5">
     <thead>
         <tr>
-            <h2 class="display-8"><i class="fas fa-building"></i>{{$advance->name}} Anticipos Totales: {{number_format($anticipoTotal, 2)}}</h3>
+            <h2 class="display-8"><i class="fas fa-building"></i>{{$project->name}} Anticipos Totales: {{number_format($anticipoTotal, 2)}}</h3>
         </tr>
     </thead>
     <tbody>
         <table class="table table-bordered">
             <thead>
-                <td>Nombre del cliente</td>
                 <td>Anticipos</td>
                 <td>Fecha</td>
+                <td>Método de pago</td>
+                <td>Referencia</td>
             </thead>
-            <tr>
-                @forelse ($projects as $project)
-                <td>{{ $project->client->name }}</td>
-                <td>{{ number_format($anticipoTotal, 2) }}</td>
-                <td>{{date_format($project->advance->transaction->date)}}</td>
-                @empty
-                    <td colspan="7" class="text-center">No hay Anticipos disponibles</td>
-                @endforelse
-            </tr>
+            <body>
+                @foreach($advances as $advance)
+                <tr>
+                    <td>{{ number_format($advance->amount, 2) }}</td>
+                    <td>{{ $advance->date}}</td>
+                    <td>{{ $advance->payment_method}}</td>
+                    <td>{{ $advance->reference}}</td>
+                </tr>
+                @endforeach
+        </body>
         </table>
     </tbody>
 </div>

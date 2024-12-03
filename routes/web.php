@@ -32,23 +32,23 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::resource('advance', AdvanceController::class);
 
     Route::post('/project/assign-supplier', [ProjectController::class, 'assignSupplier'])->name('project.assign.supplier');
+    
+    //**sobra */
     Route::get('/payments/{supplier}', [PaymentController::class, 'show'])->name('payments.show');
 
+    Route::get('/project/{project_id}/supplier/{supplier_id}/payments', [PaymentController::class, 'showPayments'])->name('project.supplier.payments');
+
+    Route::get('project/{project_id}/advances', [AdvanceController::class, 'showAdvances'])->name('project.advances');
+
+    //**sobran */
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
+
+
 
     Route::post('/user/{id}/password-reset', [UserController::class, 'passwordReset'])->name('user.passwordReset');
-    Route::get('/home', function () {return view('home');
-
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
-    Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
+    Route::get('/home', function () { return view('home');});
     Route::get('/advances', [AdvanceController::class, 'index'])->name('advances.index');
-    Route::get('/totaladvances', [AdvanceController::class, 'total'])->name('advances.total');
-    Route::get('/payments/deudas', [PaymentController::class, 'deudas'])->name('payments.deudas');
-    Route::get('/cobros', [AdvanceController::class, 'index'])->name('advances.cobros');
-
-    Route::get('/project/{project}/advances', [AdvanceController::class, 'showAdvances'])->name('project.advances.show');
-    });
 
     Route::get('/', function () { return view('index');})->name('index');
 });

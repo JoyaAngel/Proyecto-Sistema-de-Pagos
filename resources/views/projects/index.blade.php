@@ -78,7 +78,7 @@
                           <h5 class="modal-title" id="assignSupplierModalLabel">Asignar Proveedor</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('project.assign.supplier') }}" method="POST">
+                        <form action="{{ route('project.assign.supplier', $project) }}" method="POST">
                           @csrf
                           <div class="modal-body">
                             <input type="hidden" id="modalProjectId" name="project_id">

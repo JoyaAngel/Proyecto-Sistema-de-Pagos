@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Advance;
 use App\Models\Project;
-use Illuminate\Support\Facades\DB;
 
 class AdvanceController extends Controller
 {
@@ -33,6 +32,20 @@ class AdvanceController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $project = Project::find(request('project_id'));
+        $id = $project->id;
+        $totalAdvance = Transaction::whereHas('advance', function ($query) use ($id) {
+            $query->where('project_id', $id); // Filtrar por el proyecto
+        })->sum('amount');
+
+        if($project->status != 'a'){
+            return back()->with('error', 'The project is not active');
+        }
+        if ($totalAdvance + $request->amount > $project->total) {
+            return back()->with('error', 'The total advance exceeds the project total');
+        }
+
         $transaction = Transaction::create($request->all());
 
         $advance = new Advance();
@@ -75,15 +88,11 @@ class AdvanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Advance $advance)
+    public function destroy(string $id)
     {
         //
-        $advance->delete();
-
-        // Redirigir a la lista de pagos con un mensaje de éxito
-        return back()->with('status', 'Advance deleted successfully');
     }
-    
+
     public function showAdvances(String $project)
     {
         $project = Project::find($project);
@@ -91,8 +100,10 @@ class AdvanceController extends Controller
             $query->where('project_id', $project->id);
         })->get();
 
-        dd($advances);
+        $anticipoTotal = $advances->sum('amount');
 
-        return view('advances.show', compact('project', 'advances'));
+        //dd($advances);
+
+        return view('advances.show', compact('project', 'advances', 'anticipoTotal'));
     }
 }

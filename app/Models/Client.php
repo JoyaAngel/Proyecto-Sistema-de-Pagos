@@ -17,7 +17,7 @@ class Client extends Model
         return $this->belongsTo(Organization::class);
     }
 
-    public function proyects()
+    public function projects()
     {
         return $this->hasMany(Project::class);
     }

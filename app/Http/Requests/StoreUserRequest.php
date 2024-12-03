@@ -23,8 +23,17 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->isMethod('put')) {
+            return [
+                'name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email',
+                'type' => 'required|in:a,u',
+            ];
+        }
         return [
             'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:8',
             'type' => 'required|in:admin,user', // Solo administrador o usuario
@@ -35,6 +44,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name.required' => 'El nombre es obligatorio.',
+            'last_name.required' => 'El apellido es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.email' => 'El correo electrónico no tiene un formato válido.',
             'email.unique' => 'El correo electrónico ya está registrado.',

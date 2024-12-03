@@ -76,12 +76,12 @@
                     <dd class="col-sm-8">${{ number_format($totalAdvance, 2) }}</dd>
 
                     <!-- Total después de Anticipos -->
-                    <dt class="col-sm-4 text-muted">Total después de Anticipos</dt>
+                    <dt class="col-sm-4 text-muted">Monto por cobrar</dt>
                     <dd class="col-sm-8">${{ number_format($diff, 2) }}</dd>
                 </dl>
                     <div class="d-flex justify-content-start mt-3">
                         
-                        <a href="{{route('project.advances.show', $project)}}" class="btn btn-outline-primary btn-md" >
+                        <a class="btn btn-outline-primary btn-md" href="{{ route('project.advances', [$project->id])}}">
                             Ver Anticipos Recibidos
                         </a>
                         @if(Auth::user()->type === 'a')
@@ -123,7 +123,7 @@
                                                 Registrar Pago
                                             </button>
                                             @endif
-                                            <a href="{{ route('payments.show', ['supplier' => $supplier->id]) }}" class="btn btn-outline-info btn-sm ms-2">
+                                            <a href="{{ route('project.supplier.payments', [$project->id, $supplier->id]) }}" class="btn btn-outline-info btn-sm ms-2">
                                                 Ver Pagos Realizados
                                             </a>
                                             
