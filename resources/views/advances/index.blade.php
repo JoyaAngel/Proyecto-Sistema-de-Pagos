@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ $advance->transaction->id ?? 'Sin id'}}</td>
                         <td>{{ $advance->project->client->organization->name ?? 'Sin organización' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($advance->created_at)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($advance->transaction->date)->format('d-m-Y') }}</td>
                         <td>${{ number_format($advance->transaction->amount, 2) }}</td>
                         <td>{{ ucfirst($advance->transaction->payment_method) }}</td>
                     </tr>
