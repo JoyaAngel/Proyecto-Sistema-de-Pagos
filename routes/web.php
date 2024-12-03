@@ -35,6 +35,8 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
 
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/payments/all', [PaymentController::class, 'index'])->name('payments.index_all');
+    Route::get('supplier/{supplier}/payments', [PaymentController::class, 'show'])->name('payments.show');
+
 
     Route::post('/user/{id}/password-reset', [UserController::class, 'passwordReset'])->name('user.passwordReset');
     Route::get('/home', function () {return view('home');
