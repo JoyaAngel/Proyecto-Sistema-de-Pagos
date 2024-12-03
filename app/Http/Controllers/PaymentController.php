@@ -76,7 +76,6 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->project_supplier_id = $project_supplier->id;
         $transaction->payment()->save($payment);
-
         return back()->with('status', 'Payment registered successfully');
 
     }

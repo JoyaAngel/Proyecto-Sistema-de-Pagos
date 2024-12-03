@@ -21,11 +21,6 @@ class AdvanceFactory extends Factory
     {
         $project = Project::inRandomOrder()->first();
 
-        // Handle the case where no project is found
-        if (!$project) {
-            throw new \Exception('No project found');
-        }
-
         $remainingBudget = $project->total - $project->advances()->with('transaction')->get()->sum('transaction.amount');
 
         // Ensure the transaction amount does not exceed the remaining budget

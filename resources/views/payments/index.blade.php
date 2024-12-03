@@ -23,7 +23,7 @@
                 @foreach($payments as $payment)
                     <tr>
                         <td>{{ $payment->id }}</td>
-                        <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($payment->organization->date)->format('d-m-Y') }}</td>
                         <td>${{ number_format($payment->amount, 2) }}</td>
                         <td>{{ ucfirst($payment->payment_method) }}</td>
                     </tr>

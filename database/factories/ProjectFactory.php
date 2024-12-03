@@ -17,24 +17,34 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        // seleccionar un cliente sin proyecto
+        $client = Client::doesntHave('projects')->inRandomOrder()->first();
 
         $subtotal = $this->faker->randomFloat(2, 10000, 999999);
         $tax = 0.16;
         $total = $subtotal + ($subtotal * $tax);
 
+        $startDate = $this->faker->date();
+        $endDate = $this->faker->dateTimeBetween($startDate, '+2 years');
+        if (now() >= $startDate && now() <= $endDate) {
+            $status = 'a';
+        } else {
+            $status = $this->faker->randomElement(['i', 'f']);
+        }
+
 
         return [
-            'client_id' => Client::inRandomOrder()->first()->id,
+            'client_id' => $client->id,
 
             // Otros campos
             'name' => $this->faker->word(),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
+            'start_date' => $startDate,
+            'end_date' => $endDate,
             'subtotal' => $subtotal,
             'tax' => $tax,
             'total' => $total,
             'concept' => $this->faker->randomElement(['concepto 1', 'concepto 2', 'concepto 3']),
-            'status' => $this->faker->randomElement(['a', 'i', 'f']),
+            'status' => $status,
             'comments' => $this->faker->sentence(),
         ];
     }

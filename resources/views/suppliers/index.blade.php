@@ -3,11 +3,11 @@
 @section('content')
   <div class="container mt-5">
     <!-- Título -->
-    <div class="row mt-5">
+    <div class="row mb-4">
       <div class="col-12 d-flex justify-content-between align-items-center">
-        <h1 class="text-primary">Gestión de Proveedores</h1>
+        <h1 class="display-4"><i class="bi bi-person-check"></i> Gestión de Proveedores</h1>
         @if(Auth::user()->type === 'a')
-        <a href="{{ route('supplier.create', ['type' => 'supplier']) }}" class="btn btn-success">
+        <a href="{{ route('supplier.create', ['type' => 'supplier']) }}" class="btn btn-outline-secondary btn-lg">
           <i class="bi bi-plus-circle"></i> Nuevo Proveedor
         </a>
         @endif
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Tabla de Proveedores -->
-    <div class="row flex-grow-1">
+    <div class="row">
       <div class="col-12">
         <div class="card shadow-sm">
           <div class="card-header bg-primary text-white">
@@ -33,7 +33,7 @@
                     <th>Teléfono</th>
                     <th>Dirección</th>
                     @if(Auth::user()->type === 'a')
-                      <th scope="col">Acciones</th>
+                      <th>Acciones</th>
                     @endif
                   </tr>
                 </thead>
@@ -50,14 +50,16 @@
                     @if (Auth::user()->type === 'a')
                     <td>
                       <div class="d-flex align-items-center gap-2">
-                      <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'supplier']) }}" class="btn btn-primary">Editar</a>
-                      @include('organizations.partials.eliminacion')
-                      <form style="display: inline;">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
-                          Eliminar
+                        <a href="{{ route('organization.edit', ['organization' => $organization->id, 'type' => 'supplier']) }}" class="btn btn-warning btn-sm">
+                          <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        @include('organizations.partials.eliminacion')
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminacion_{{ $organization->id }}">
+                          <i class="bi bi-trash"></i> Eliminar
                         </button>
-                      </form>
-                      <a href="{{route('supplier.show', $organization->supplier)}}">Desglose</a>
+                        <a href="{{ route('supplier.show', $organization->supplier) }}" class="btn btn-info btn-sm">
+                          <i class="bi bi-info-circle"></i> Detalle
+                        </a>
                       </div>
                     </td>
                     @endif
@@ -83,4 +85,3 @@
     </div>
   </div>
 @endsection
-

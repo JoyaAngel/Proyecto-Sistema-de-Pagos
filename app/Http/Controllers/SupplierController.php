@@ -8,7 +8,8 @@ use App\Models\Supplier;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\ProjectSupplier;
-use Illuminate\Support\Facades\DB;
+use App\Models\Payment;
+use App\Models\Transaction;
 
 class SupplierController extends Controller
 {
@@ -60,14 +61,19 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
-        $proyectos = Project::whereHas('suppliers', function($query) use($supplier){
+        $transitiva = ProjectSupplier::where('supplier_id', $supplier->id)->get();
+
+        $proyectos = Project::whereIn('id', $transitiva->pluck('project_id'))->get();
+        $costoTotal = $transitiva->sum('service_cost');
+
+        // obtenr los pagos del proveedor y sumarlos
+        $sumaPagos = Payment::whereHas('projectSupplier', function ($query) use ($supplier) {
             $query->where('supplier_id', $supplier->id);
-        });
-        $deudaTotal = ProjectSupplier::where('supplier_id', $supplier->id)->sum('service_cost');
-        //dd($proyectos);
-        //dd($deudaTotal);
-        //dd($supplier);
+        })->with('transaction')->get()->sum('transaction.amount');
+
+        $deudaTotal = $costoTotal - $sumaPagos;
+        
+
         return view('suppliers.show', compact('supplier', 'deudaTotal', 'proyectos'));
     }
 

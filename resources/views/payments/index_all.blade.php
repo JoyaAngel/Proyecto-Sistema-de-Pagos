@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $payment->transaction->id ?? 'Sin id'}}</td>
                         <td>{{ $payment->projectSupplier->supplier->organization->name ?? 'Sin organización' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($payment->transaction->date)->format('d-m-Y') }}</td>
                         <td>${{ number_format($payment->transaction->amount, 2) }}</td>
                         <td>{{ ucfirst($payment->transaction->payment_method) }}</td>
 
