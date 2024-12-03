@@ -50,6 +50,7 @@
                                                     Delete
                                                 </button>
                                             </form>
+                                            <a href="{{route('supplier.show', $organization->supplier)}}">Desglose</a>
                                         </td>
                                     </tr>
                                     @empty

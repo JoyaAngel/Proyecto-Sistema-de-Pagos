@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Advance;
+use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 
 class AdvanceController extends Controller
@@ -45,20 +46,14 @@ class AdvanceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Advance $advance)
     {
         //
-        $results = DB::select('
-            SELECT p.id, o.name,
-                   SUM(total) AS cobroTotal
-            FROM proyecto_is.projects AS p
-            INNER JOIN proyecto_is.clients AS c ON p.client_id = c.id
-            INNER JOIN proyecto_is.organizations AS o ON c.organization_id = o.id
-            GROUP BY p.id, o.name;
-        ');
-
-        // Pasar los resultados a la vista
-        return view('advance.deudas', ['results' => $results], compact('results'));
+        dd($advance);
+        $project = Advance::where('advance_id', $advance->project->total);
+        $cliente = Project::where('client_id', $advance->project->client_id);
+        $anticipoTotal = Advance::where('transaction_id', $advance->transaction_id->id)->sum('amount');
+        return view('advances.show', compact('project', 'anticipototal'));
     }
 
     /**
@@ -87,5 +82,17 @@ class AdvanceController extends Controller
 
         // Redirigir a la lista de pagos con un mensaje de éxito
         return back()->with('status', 'Advance deleted successfully');
+    }
+    
+    public function showAdvances(String $project)
+    {
+        $project = Project::find($project);
+        $advances = Transaction::whereHas('advance', function ($query) use ($project) {
+            $query->where('project_id', $project->id);
+        })->get();
+
+        dd($advances);
+
+        return view('advances.show', compact('project', 'advances'));
     }
 }

@@ -46,6 +46,8 @@ Route::middleware([UserAuthenticate::class, CheckPasswordChange::class])->group(
     Route::get('/totaladvances', [AdvanceController::class, 'total'])->name('advances.total');
     Route::get('/payments/deudas', [PaymentController::class, 'deudas'])->name('payments.deudas');
     Route::get('/cobros', [AdvanceController::class, 'index'])->name('advances.cobros');
+
+    Route::get('/project/{project}/advances', [AdvanceController::class, 'showAdvances'])->name('project.advances.show');
     });
 
     Route::get('/', function () { return view('index');})->name('index');

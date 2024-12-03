@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
 use App\Models\Organization;
+use App\Models\Project;
+use App\Models\ProjectSupplier;
+use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
@@ -50,9 +53,17 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Supplier $supplier)
     {
         //
+        $proyectos = Project::whereHas('suppliers', function($query) use($supplier){
+            $query->where('supplier_id', $supplier->id);
+        });
+        $deudaTotal = ProjectSupplier::where('supplier_id', $supplier->id)->sum('service_cost');
+        //dd($proyectos);
+        //dd($deudaTotal);
+        //dd($supplier);
+        return view('suppliers.show', compact('supplier', 'deudaTotal', 'proyectos'));
     }
 
     /**

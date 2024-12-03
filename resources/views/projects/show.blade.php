@@ -81,9 +81,9 @@
                 </dl>
                     <div class="d-flex justify-content-start mt-3">
                         
-                        <button class="btn btn-outline-primary btn-md">
+                        <a href="{{route('project.advances.show', $project)}}" class="btn btn-outline-primary btn-md" >
                             Ver Anticipos Recibidos
-                        </button>
+                        </a>
                         @if(Auth::user()->type === 'a')
                         <button class="btn btn-outline-primary btn-md ms-2" data-bs-toggle="modal" data-bs-target="#advanceModal">
                             Registrar Anticipo del Cliente

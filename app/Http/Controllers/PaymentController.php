@@ -29,7 +29,7 @@ class PaymentController extends Controller
     public function deudas()
     {
         $results = DB::select('
-            SELECT o.name, SUM(amount_assigned) AS deudaTotal
+            SELECT o.name, SUM(service_cost) AS deudaTotal
             FROM proyecto_is.project_supplier AS ps
             INNER JOIN proyecto_is.suppliers AS s ON (ps.supplier_id = s.id)
             INNER JOIN proyecto_is.organizations AS o ON (s.organization_id = o.id)
