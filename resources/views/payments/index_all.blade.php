@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container my-4">
-    <h1 class="display-4"><i class="fas fa-building"></i> Payments Overview</h1>
+    <h1 class="display-4"><i class="fas fa-building"></i> Resumen de Pagos</h1>
 
     @if($payments->isEmpty())
         <p class="text-muted">No hay pagos registrados.</p>
@@ -9,13 +9,13 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Supplier</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Payment Method</th>
+                    <th>ID</th>
+                    <th>Proveedor</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Método de pago</th>
                     @if (Auth::user()->type === 'a')
-                        <th>Actions</th>
+                        <th>Acciones</th>
                     @endif
                 </tr>
             </thead>

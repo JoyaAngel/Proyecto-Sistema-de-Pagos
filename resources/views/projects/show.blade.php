@@ -5,10 +5,10 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="display-4"><i class="fas fa-building"></i> Project <span class="text-secondary">{{ $project->name }}</span></h1>
+            <h1 class="display-4"><i class="fas fa-building"></i> Proyecto <span class="text-secondary">{{ $project->name }}</span></h1>
         </div>
         <a href="{{ route('project.index') }}" class="btn btn-outline-secondary btn-lg">
-            <i class="fas fa-plus-circle"></i> Back
+            <i class="fas fa-plus-circle"></i> Regresar
         </a>
     </div>
 
