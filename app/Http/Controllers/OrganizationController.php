@@ -77,7 +77,14 @@ class OrganizationController extends Controller
                 return back()->withErrors(['error' => 'Unknown previous URL']);
             }
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Failed to update organization: ' . $e->getMessage()]);
+
+            if (str_contains($e->getMessage(), "email")) {
+                return back()->withErrors(['error' => 'Email already exists']);
+            } elseif (str_contains($e->getMessage(), "rfc")) {
+                return back()->withErrors(['error' => 'RFC already exists']);
+            } else {
+                return back()->withErrors(['error' => 'Failed to update organization: ' . $e->getMessage()]);
+            }
         }
     }
 
