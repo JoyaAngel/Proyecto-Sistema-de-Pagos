@@ -17,17 +17,13 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        $results = DB::select('
-            SELECT p.id, o.name,
-                   SUM(total) AS deudaTotal
-            FROM proyecto_is.projects AS p
-            INNER JOIN proyecto_is.clients AS c ON p.client_id = c.id
-            INNER JOIN proyecto_is.organizations AS o ON c.organization_id = o.id
-            GROUP BY p.id, o.name;
-        ');
+        $payments = Payment::with('projectSupplier.supplier', 'transaction')->paginate(10);
 
-        // Pasar los resultados a la vista
-        return view('payments.deudas', ['results' => $results], compact('results'));
+        //dd($payments);
+
+        // Pasar los pagos a la vista
+        return view('payments.index_all', compact('payments'));
+        //Mira joyita, es esto uwu
     }
 
     public function deudas()

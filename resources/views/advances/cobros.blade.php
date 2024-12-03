@@ -14,7 +14,7 @@
             @foreach ($results as $row)
                 <tr>
                     <td>{{ $row->name }}</td>
-                    <td>{{ number_format($row->deudaTotal, 2) }}</td>
+                    <td>{{ number_format($row->cobroTotal, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>
