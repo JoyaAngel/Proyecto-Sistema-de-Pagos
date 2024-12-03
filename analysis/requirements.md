@@ -126,6 +126,7 @@
 * La eliminación de registros debe siempre requerir confirmación por parte del usuario para evitar errores accidentales.
 
 ## Requisitos no funcionales:
+* El sistema debe desarrollarse con el framework de Laravel 11
 * Validación básica:
     * Todos los formularios deben tener validaciones básicas (campos obligatorios, formato de email, etc.).
 * Diseño básico:
