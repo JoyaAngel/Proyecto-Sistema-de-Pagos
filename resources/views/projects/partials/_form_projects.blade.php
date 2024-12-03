@@ -19,7 +19,7 @@
             <div class="mb-3">
               <label for="client" class="form-label">Cliente</label>
               <div class="input-group">
-                <!-- Campo oculto para enviar el ID del cliente -->
+                <!-- Para enviar el ID del cliente -->
                 <input type="hidden" id="client_id" name="client_id" value="{{ old('client_id', $project->client_id) }}">
                 <input type="text" class="form-control" id="client_name" name="client_name" placeholder="Selecciona un cliente" readonly value="{{ old('client_name', $project->client_name) }}">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal">
@@ -51,13 +51,8 @@
               </div>
               <div class="col-md-8">
                 <label for="concept" class="form-label">Concepto</label>
-                <select class="form-select" id="concept" name="concept">
-                  <option value="" selected disabled>Selecciona un concepto</option>
-                  <option value="1" {{ old('concept', $project->concept) == '1' ? 'selected' : '' }}>Opción 1</option>
-                  <option value="2" {{ old('concept', $project->concept) == '2' ? 'selected' : '' }}>Opción 2</option>
-                  <option value="3" {{ old('concept', $project->concept) == '3' ? 'selected' : '' }}>Opción 3</option>
-                </select>
-              </div>
+                <input type="text" class="form-control" id="concept" name="concept" value="{{ old('concept', $project->concept) }}" placeholder="Ingresa el concepto">
+            </div>            
               <div class="col-md-4">
                 <label for="status" class="form-label">Estado</label>
                 <select class="form-select" id="status" name="status">
@@ -156,6 +151,3 @@
         });
     });
 </script>
-
-
-

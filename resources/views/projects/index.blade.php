@@ -139,7 +139,7 @@
                       <form style="display: inline;">
                         <button type="button" class="btn btn-danger btn-sm cancel-project-btn" 
                                 data-id="{{ $project->id }}" data-bs-toggle="modal" 
-                                data-bs-target="#cancelProjectModal">
+                                data-bs-target="#cancelProjectModal_{{ $project->id }}">
                             <i class="bi bi-x-circle"></i> Cancelar
                         </button>
                       </form>
