@@ -14,10 +14,31 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('projects.index', ['projects' => Project::paginate(10), 'suppliers' => Supplier::all()]);
+    public function index(Request $request)
+{
+    $status = $request->input('status');
+    $query = Project::query();
+
+    // Aplicar filtros según el estado
+    if ($status === 'active') {
+        $query->where('status', 'a');
+    } elseif ($status === 'inactive') {
+        $query->where('status', 'i');
+    } elseif ($status === 'finished') {
+        $query->where('status', 'f');
+    }  elseif ($status === '') {
+        // Excluir proyectos 
+        $query->where('status', '!=', 'c');
     }
+    $projects = $query->where('status', '!=', 'c')
+                      ->orderBy('end_date', 'asc')->paginate(10)->appends(['status' => $status]);
+
+    return view('projects.index', [
+        'projects' => $projects,
+        'suppliers' => Supplier::all(),
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -85,7 +106,7 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('project.index')->with('status', 'Project updated successfully');
+        return redirect()->route('project.index')->with('status', 'El proyecto ha sido actualizado exitosamente.');
     }
 
     /**
@@ -128,5 +149,19 @@ class ProjectController extends Controller
 
         return redirect()->route('project.index')->with('status', $message);
     }
+
+    public function cancel(Request $request, Project $project)
+    {
+        // Validar si el estado no es ya 'cancelado'
+        if ($project->status === 'c') {
+            return redirect()->route('project.index')->with('warning', 'Este proyecto ya está cancelado.');
+        }
+
+        // Cambiar el estado del proyecto a 'c' (cancelado)
+        $project->update(['status' => 'c']);
+
+        return redirect()->route('project.index')->with('success', 'El proyecto ha sido cancelado exitosamente.');
+    }
+
 
 }

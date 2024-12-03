@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->foreignId('project_id');
             $table->foreignId('supplier_id');
-            $table->decimal('service_cost', 10, 2);
+            $table->decimal('service_cost', 10, 2)->nullable();
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

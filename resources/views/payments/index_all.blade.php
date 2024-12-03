@@ -14,7 +14,9 @@
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Payment Method</th>
-                    <th>Actions</th>
+                    @if (Auth::user()->type === 'a')
+                        <th>Actions</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -25,11 +27,14 @@
                         <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
                         <td>${{ number_format($payment->transaction->amount, 2) }}</td>
                         <td>{{ ucfirst($payment->transaction->payment_method) }}</td>
-                        <td>
+
+                        @if (Auth::user()->type === 'a')
+                            <td>
                             @include('payments.partials.eliminacion')
                             <form style="display: inline;">
                             </form>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

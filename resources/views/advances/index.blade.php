@@ -14,7 +14,6 @@
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Payment Method</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,14 +24,6 @@
                         <td>{{ \Carbon\Carbon::parse($advance->created_at)->format('d-m-Y') }}</td>
                         <td>${{ number_format($advance->transaction->amount, 2) }}</td>
                         <td>{{ ucfirst($advance->transaction->payment_method) }}</td>
-                        <td>
-                            @include('advances.partials.eliminacion')
-                            <form style="display: inline;">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminacion{{ $advance->id }}">
-                                    Eliminar
-                                </button>
-                            </form>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>

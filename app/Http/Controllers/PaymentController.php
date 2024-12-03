@@ -85,17 +85,18 @@ class PaymentController extends Controller
      * Display the specified resource.
      */
     public function show($supplierId)
-{
-    $supplier = Supplier::findOrFail($supplierId);
+    {
+        
+        $supplier = Supplier::findOrFail($supplierId);
 
-    // Obtener los project_supplier_id relacionados con el proveedor
-    $projectSupplierIds = ProjectSupplier::where('supplier_id', $supplierId)->pluck('id');
+        $payments = Payment::whereHas('projectSupplier', function ($query) use ($supplierId) {
+            $query->where('supplier_id', $supplierId);
+        })->get();
 
-    // Obtener los pagos relacionados con esos project_supplier_id
-    $payments = Payment::whereIn('project_supplier_id', $projectSupplierIds)->get();
+        $serviceCost = $supplier->proyects()->sum('subtotal');
 
-    return view('payments.index', compact('supplier', 'payments'));
-}
+        return view('payments.index', compact('supplier', 'payments', 'serviceCost'));
+    }
 
 
     /**

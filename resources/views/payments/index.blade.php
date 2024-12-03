@@ -4,6 +4,8 @@
 <div class="container my-4">
     <h1>Pagos realizados al proveedor: {{ $supplier->organization->name }}</h1>
 
+    <h3>Costo total del servicio: ${{ number_format($serviceCost, 2) }}</h3>
+
     @if($payments->isEmpty())
         <p class="text-muted">No se han registrado pagos para este proveedor.</p>
     @else
@@ -22,9 +24,8 @@
                     <tr>
                         <td>{{ $payment->id }}</td>
                         <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y') }}</td>
-                        <td>{{ $payment->projectSupplier?->project?->name}}</td>
-                        <td>{{ ucfirst($payment->transaction->payment_method) }}</td>
-                        <td>${{ number_format($payment->transaction->amount, 2) }}</td>
+                        <td>${{ number_format($payment->amount, 2) }}</td>
+                        <td>{{ ucfirst($payment->payment_method) }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -32,3 +33,4 @@
     @endif
 </div>
 @endsection
+

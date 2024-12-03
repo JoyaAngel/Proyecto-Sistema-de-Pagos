@@ -17,36 +17,40 @@
   </div>
 @endif
 
-  </div>
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="display-4"><i class="fas fa-building"></i> Projects Overview</h1>
-        <a href="{{ route('project.create') }}" class="btn btn-outline-secondary btn-lg">
-            <i class="fas fa-plus-circle"></i> New Project
-        </a>
+
+        @if (Auth::user()->type === 'a')
+            <a href="{{ route('project.create') }}" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-plus-circle"></i> New Project
+            </a>
+        @endif
     </div>
 
 
-  <!-- Filtros -->
-  <div class="row my-4">
-    <div class="col-lg-6">
-      <div class="btn-group" role="group" aria-label="Filtros de proyecto">
-        <a href="#" 
-          class="btn btn-outline-primary">
-            Proyectos Activos
-        </a>
-        <a href="#" 
-           class="btn btn-outline-secondary">
-          Proyectos Terminados
-        </a>
-        <a href="#" 
-           class="btn btn-outline-dark">
-          Todos
-        </a>
-      </div>
-    </div>
+<!-- Filtros -->
+<div class="row my-4">
+  <div class="col-lg-6">
+      <form method="GET" action="{{ route('project.index') }}">
+          <div class="btn-group" role="group" aria-label="Filtros de proyecto">
+              <button type="submit" name="status" value="active" class="btn btn-outline-primary {{ request('status') == 'active' ? 'active' : '' }}">
+                  Proyectos Activos
+              </button>
+              <button type="submit" name="status" value="inactive" class="btn btn-outline-secondary {{ request('status') == 'inactive' ? 'active' : '' }}">
+                  Proyectos Inactivos
+              </button>
+              <button type="submit" name="status" value="finished" class="btn btn-outline-dark {{ request('status') == 'finished' ? 'active' : '' }}">
+                  Proyectos Terminados
+              </button>
+              <button type="submit" name="status" value="" class="btn btn-outline-primary {{ request('status') == '' ? 'active' : '' }}">
+                Todos
+            </button>            
+          </div>
+      </form>
   </div>
+</div>
 
   <!-- Tabla de Proyectos -->
   <div class="row">
@@ -134,6 +138,14 @@
                               data-bs-toggle="modal" data-bs-target="#assignSupplierModal">
                         <i class="bi bi-link"></i> Asignar Proveedor
                       </button>
+                      @include('projects.partials.cancelacion')
+                      <form style="display: inline;">
+                        <button type="button" class="btn btn-danger btn-sm cancel-project-btn" 
+                                data-id="{{ $project->id }}" data-bs-toggle="modal" 
+                                data-bs-target="#cancelProjectModal_{{ $project->id }}">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </button>
+                      </form>
                       @endif
                     </td>
                   </tr>
@@ -147,7 +159,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
-            {{ $projects->links('pagination::bootstrap-4') }}
+          {{ $projects->links('pagination::bootstrap-4') }}
         </div>
       </div>
     </div>

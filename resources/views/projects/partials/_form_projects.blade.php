@@ -43,12 +43,7 @@
   </div>
   <div class="col-md-8">
     <label for="concept" class="form-label">Concepto</label>
-    <select class="form-select" id="concept" name="concept">
-      <option value="" selected disabled>Selecciona un concepto</option>
-      <option value="1" {{ old('concept', $project->concept) == '1' ? 'selected' : '' }}>Opción 1</option>
-      <option value="2" {{ old('concept', $project->concept) == '2' ? 'selected' : '' }}>Opción 2</option>
-      <option value="3" {{ old('concept', $project->concept) == '3' ? 'selected' : '' }}>Opción 3</option>
-    </select>
+    <input type="text" class="form-control" id="concept" name="concept" value="{{ old('concept', $project->concept) }}" placeholder="Ingresa el concepto">
   </div>
   <div class="col-md-4">
     <label for="status" class="form-label">Estado</label>
