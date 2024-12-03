@@ -7,6 +7,7 @@ use App\Models\ProjectSupplier;
 use App\Models\Transaction;
 use App\Models\Payment;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -16,13 +17,30 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        $payments = Payment::with('projectSupplier.supplier', 'transaction')->paginate(10);
+        $results = DB::select('
+            SELECT p.id, o.name,
+                   SUM(total) AS deudaTotal
+            FROM proyecto_is.projects AS p
+            INNER JOIN proyecto_is.clients AS c ON p.client_id = c.id
+            INNER JOIN proyecto_is.organizations AS o ON c.organization_id = o.id
+            GROUP BY p.id, o.name;
+        ');
 
-        //dd($payments);
+        // Pasar los resultados a la vista
+        return view('payments.deudas', ['results' => $results], compact('results'));
+    }
 
-        // Pasar los pagos a la vista
-        return view('payments.index_all', compact('payments'));
-        //Mira joyita, es esto uwu
+    public function deudas()
+    {
+        $results = DB::select('
+            SELECT o.name, SUM(amount_assigned) AS deudaTotal
+            FROM proyecto_is.project_supplier AS ps
+            INNER JOIN proyecto_is.suppliers AS s ON (ps.supplier_id = s.id)
+            INNER JOIN proyecto_is.organizations AS o ON (s.organization_id = o.id)
+            GROUP BY o.name
+        ');
+
+        return view('payments.deudas', ['results' => $results]);
     }
 
     /**
@@ -98,4 +116,5 @@ class PaymentController extends Controller
         // Redirigir a la lista de pagos con un mensaje de éxito
         return back()->with('status', 'Payment deleted successfully');
     }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Advance;
+use Illuminate\Support\Facades\DB;
 
 class AdvanceController extends Controller
 {
@@ -47,6 +48,17 @@ class AdvanceController extends Controller
     public function show(string $id)
     {
         //
+        $results = DB::select('
+            SELECT p.id, o.name,
+                   SUM(total) AS cobroTotal
+            FROM proyecto_is.projects AS p
+            INNER JOIN proyecto_is.clients AS c ON p.client_id = c.id
+            INNER JOIN proyecto_is.organizations AS o ON c.organization_id = o.id
+            GROUP BY p.id, o.name;
+        ');
+
+        // Pasar los resultados a la vista
+        return view('advance.deudas', ['results' => $results], compact('results'));
     }
 
     /**
