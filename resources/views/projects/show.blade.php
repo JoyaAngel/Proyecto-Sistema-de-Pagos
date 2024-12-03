@@ -76,7 +76,7 @@
                     <dd class="col-sm-8">${{ number_format($totalAdvance, 2) }}</dd>
 
                     <!-- Total después de Anticipos -->
-                    <dt class="col-sm-4 text-muted">Total después de Anticipos</dt>
+                    <dt class="col-sm-4 text-muted">Monto por cobrar</dt>
                     <dd class="col-sm-8">${{ number_format($diff, 2) }}</dd>
                 </dl>
                     <div class="d-flex justify-content-start mt-3">

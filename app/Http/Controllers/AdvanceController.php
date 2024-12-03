@@ -93,8 +93,10 @@ class AdvanceController extends Controller
             $query->where('project_id', $project->id);
         })->get();
 
-        dd($advances);
+        $anticipoTotal = $advances->sum('amount');
 
-        return view('advances.show', compact('project', 'advances'));
+        //dd($advances);
+
+        return view('advances.show', compact('project', 'advances', 'anticipoTotal'));
     }
 }
