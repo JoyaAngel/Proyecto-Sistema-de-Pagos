@@ -42,17 +42,17 @@ class StoreOrganizationRequest extends FormRequest
     {
         return [
             'name.required' => 'Organization name is required',
-            'name.max' => 'Organization name must be 100 stringacters',
+            'name.max' => 'Organization name must be 100 characters',
             'person.required' => 'Organization person is required',
             'rfc.required' => 'Organization RFC is required',
-            'rfc.max' => 'Organization RFC must be 13 stringacters',
+            'rfc.max' => 'Organization RFC must be 13 characters',
             'email.required' => 'Organization email is required',
             'email.email' => 'Organization email must be a valid email',
-            'email.max' => 'Organization email must be 100 stringacters',
+            'email.max' => 'Organization email must be 100 characters',
             'phone.required' => 'Organization phone is required',
-            'phone.max' => 'Organization phone must be 10 stringacters',
+            'phone.max' => 'Organization phone must be 10 characters',
             'address.required' => 'Organization address is required',
-            'address.max' => 'Organization address must be 150 stringacters'
+            'address.max' => 'Organization address must be 150 characters'
         ];
     }
 }
