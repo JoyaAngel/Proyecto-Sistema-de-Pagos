@@ -19,8 +19,22 @@ class AdvanceFactory extends Factory
      */
     public function definition(): array
     {
-        $transaction = Transaction::factory()->create();
         $project = Project::inRandomOrder()->first();
+
+        // Handle the case where no project is found
+        if (!$project) {
+            throw new \Exception('No project found');
+        }
+
+        $remainingBudget = $project->total - $project->advances()->with('transaction')->get()->sum('transaction.amount');
+
+        // Ensure the transaction amount does not exceed the remaining budget
+        $transactionAmount = $this->faker->numberBetween(1, max(1, (int)($remainingBudget * 0.5)));
+
+        $transaction = Transaction::factory()->create([
+            'amount' => min($transactionAmount, $remainingBudget),
+        ]);
+
         return [
             'transaction_id' => $transaction->id,
             'project_id' => $project->id,
